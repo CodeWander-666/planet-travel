@@ -1,8 +1,4 @@
-:root {
-  --bg:#0A0A0A; --gold:#D4AF37; --gold-light:#F5E7B2;
-  --glass:rgba(15,15,15,0.7); --glass-border:rgba(212,175,55,0.3);
-  --font-heading:'Playfair Display',serif; --font-body:'Inter',sans-serif;
-}
+:root{--bg:#0A0A0A;--gold:#D4AF37;--gold-light:#F5E7B2;--glass:rgba(15,15,15,0.7);--glass-border:rgba(212,175,55,0.3);--font-heading:'Playfair Display',serif;--font-body:'Inter',sans-serif}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--gold-light);font-family:var(--font-body);line-height:1.6}
 h1,h2,h3{font-family:var(--font-heading);color:var(--gold)}

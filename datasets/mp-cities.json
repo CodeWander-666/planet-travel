@@ -1,5 +1,12 @@
 [
-  {"id":"gwalior","slug":"gwalior","name_en":"Gwalior","fort":"Gwalior Fort","luxury_hotel":"Taj Usha Kiran Palace","latitude":26.2183,"longitude":78.1828,"description":"Private fort tours, champagne at dawn."},
-  {"id":"indore","slug":"indore","name_en":"Indore","fort":"Rajwada","luxury_hotel":"Radisson Blu Indore","latitude":22.7196,"longitude":75.8577,"description":"Culinary capital, heritage & luxury."},
-  {"id":"bhopal","slug":"bhopal","name_en":"Bhopal","fort":"Gohar Mahal","luxury_hotel":"Jehan Numa Retreat","latitude":23.2599,"longitude":77.4126,"description":"Lakes, Sufism & royal stays."}
+  {"id":"gwalior","slug":"gwalior","name_en":"Gwalior","name_hi":"ग्वालियर","fort":"Gwalior Fort","luxury_hotel":"Taj Usha Kiran Palace","latitude":26.2183,"longitude":78.1828,"description":"Private fort tours, champagne at dawn."},
+  {"id":"indore","slug":"indore","name_en":"Indore","name_hi":"इंदौर","fort":"Rajwada","luxury_hotel":"Radisson Blu Indore","latitude":22.7196,"longitude":75.8577,"description":"Culinary capital, heritage & luxury."},
+  {"id":"bhopal","slug":"bhopal","name_en":"Bhopal","name_hi":"भोपाल","fort":"Gohar Mahal","luxury_hotel":"Jehan Numa Retreat","latitude":23.2599,"longitude":77.4126,"description":"Lakes, Sufism & royal stays."},
+  {"id":"jabalpur","slug":"jabalpur","name_en":"Jabalpur","name_hi":"जबलपुर","fort":"Madan Mahal","luxury_hotel":"Narmada Jacksons","latitude":23.1815,"longitude":79.9864,"description":"Marble rocks, Dhuandhar falls & luxury cruises."},
+  {"id":"ujjain","slug":"ujjain","name_en":"Ujjain","name_hi":"उज्जैन","fort":"—","luxury_hotel":"Anjushree Inn","latitude":23.1765,"longitude":75.7885,"description":"Spiritual luxury, Mahakaleshwar VIP darshan."},
+  {"id":"khajuraho","slug":"khajuraho","name_en":"Khajuraho","name_hi":"खजुराहो","fort":"—","luxury_hotel":"The Lalit Temple View","latitude":24.8318,"longitude":79.9199,"description":"Temple art, exclusive cultural evenings."},
+  {"id":"orchha","slug":"orchha","name_en":"Orchha","name_hi":"ओरछा","fort":"Orchha Fort","luxury_hotel":"Amar Mahal","latitude":25.35,"longitude":78.64,"description":"Bundela grandeur on the Betwa river."},
+  {"id":"kanha","slug":"kanha","name_en":"Kanha","name_hi":"कान्हा","fort":"—","luxury_hotel":"Banjaar Tola","latitude":22.334,"longitude":80.611,"description":"Tiger safari & jungle luxury lodges."},
+  {"id":"bandhavgarh","slug":"bandhavgarh","name_en":"Bandhavgarh","name_hi":"बांधवगढ़","fort":"Bandhavgarh Fort","luxury_hotel":"Mahua Kothi","latitude":23.699,"longitude":81.031,"description":"Wildlife luxury & ancient ruins."},
+  {"id":"pench","slug":"pench","name_en":"Pench","name_hi":"पेंच","fort":"—","luxury_hotel":"Tuli Tiger Corridor","latitude":21.757,"longitude":79.58,"description":"Mowgli's land, luxurious safari camps."}
 ]

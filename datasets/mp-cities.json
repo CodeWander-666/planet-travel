@@ -1,5 +1,5 @@
 [
-  {"id":"gwalior","name_hi":"ग्वालियर","name_en":"Gwalior","slug":"gwalior","fort":"Gwalior Fort","luxury_hotel":"Taj Usha Kiran Palace","latitude":26.2183,"longitude":78.1828,"description":"Private fort tours, champagne at dawn."},
-  {"id":"indore","name_hi":"इंदौर","name_en":"Indore","slug":"indore","fort":"Rajwada","luxury_hotel":"Radisson Blu Indore","latitude":22.7196,"longitude":75.8577,"description":"Food, heritage & luxury."},
-  {"id":"bhopal","name_hi":"भोपाल","name_en":"Bhopal","slug":"bhopal","fort":"Gohar Mahal","luxury_hotel":"Jehan Numa Retreat","latitude":23.2599,"longitude":77.4126,"description":"Lakes, Sufism & royalty."}
+  {"id":"gwalior","slug":"gwalior","name_en":"Gwalior","fort":"Gwalior Fort","luxury_hotel":"Taj Usha Kiran Palace","latitude":26.2183,"longitude":78.1828,"description":"Private fort tours, champagne at dawn."},
+  {"id":"indore","slug":"indore","name_en":"Indore","fort":"Rajwada","luxury_hotel":"Radisson Blu Indore","latitude":22.7196,"longitude":75.8577,"description":"Culinary capital, heritage & luxury."},
+  {"id":"bhopal","slug":"bhopal","name_en":"Bhopal","fort":"Gohar Mahal","luxury_hotel":"Jehan Numa Retreat","latitude":23.2599,"longitude":77.4126,"description":"Lakes, Sufism & royal stays."}
 ]

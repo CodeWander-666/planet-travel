@@ -1,7 +1,7 @@
-name: Update Live Train Data
+name: Refresh Train Schedules
 on:
   schedule:
-    - cron: '*/2 * * * *'
+    - cron: '0 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
@@ -14,8 +14,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4
-      - run: python automation/scrape_trains.py
+      - run: python automation/scrape_trains_between.py
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "🚂 Live train data update"
-          file_pattern: train-status/live-trains.json
+          commit_message: "🔄 Train schedule update"
+          file_pattern: datasets/trains-between/

@@ -1,1 +1,11 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Train Search | Planet&Travel</title><link rel="stylesheet" href="css/luxury.css"></head><body><nav class="nav-luxury"><a href="/planet-travel/" class="nav-logo">Planet&Travel</a></nav><main style="margin-top:100px;"><h1 class="gold-heading" style="text-align:center;">Golden Rail Conductor</h1><div class="train-search-container glass"><div><label>From</label><input id="from-station" class="station-input" placeholder="Station name"></div><div><label>To</label><input id="to-station" class="station-input" placeholder="Station name"></div><button class="btn-gold" onclick="searchTrains()">Find Trains</button><div id="train-results"></div></div></main><script src="js/train-tracker.js"></script><script>autocomplete('from-station'); autocomplete('to-station');</script></body></html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Train Search | Planet&Travel</title><link rel="stylesheet" href="css/luxury.css"></head><body><nav class="nav-luxury"><a href="/planet-travel/" class="nav-logo">Planet&Travel</a></nav><main style="margin-top:100px;"><h1 class="gold-heading" style="text-align:center;">Golden Rail Conductor</h1><div class="train-search-container glass">
+  <div class="autocomplete-wrapper"><label>From Station</label><input id="from-station" class="station-input" autocomplete="off" placeholder="Type station name..."></div>
+  <div class="autocomplete-wrapper"><label>To Station</label><input id="to-station" class="station-input" autocomplete="off" placeholder="Type station name..."></div>
+  <button class="btn-gold" onclick="searchTrains()">Find Trains</button>
+  <div id="train-results"></div>
+</div></main><script src="js/train.js"></script><script>
+  document.addEventListener('DOMContentLoaded', () => {
+    autocomplete('from-station');
+    autocomplete('to-station');
+  });
+</script></body></html>

@@ -1,4 +1,4 @@
-name: Regenerate Pages on Push
+name: Regenerate City Pages
 on:
   push:
     branches: [main]
@@ -17,5 +17,5 @@ jobs:
       - run: python automation/generate_pages.py
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Auto‑generate city pages"
+          commit_message: "📄 Auto‑generate city pages"
           file_pattern: cities/

@@ -14,12 +14,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4
-      - name: Scrape train data
-        run: python automation/scrape_trains.py
-      - name: Commit updated JSON
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add train-status/ || true
-          git commit -m "🚂 Update train data" || exit 0
-          git push
+      - run: python automation/scrape_trains.py
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🚂 Update live train data"
+          file_pattern: train-status/

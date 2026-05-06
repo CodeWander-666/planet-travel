@@ -1,4 +1,4 @@
-name: Regenerate Site & Deploy
+name: Regenerate Pages on Push
 on:
   push:
     branches: [main]
@@ -14,12 +14,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install jinja2
-      - name: Generate city pages
-        run: python automation/generate_pages.py
-      - name: Commit changes
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add cities/ || true
-          git commit -m "Auto‑generate city pages" || exit 0
-          git push
+      - run: python automation/generate_pages.py
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto‑generate city pages"
+          file_pattern: cities/

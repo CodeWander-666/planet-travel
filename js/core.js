@@ -7,19 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
         container.innerHTML = '';
         cities.slice(0,12).forEach(city => {
           const card = document.createElement('div');
-          card.className = 'city-card';
+          card.className = 'city-card glass';
           card.innerHTML = `
             <img src="/planet-travel/assets/watercolor/${city.slug}.jpg" alt="Luxury ${city.name_en}">
             <h3>${city.name_en}</h3>
-            <p>${city.description || 'Curated luxury experiences.'}</p>
-            <a href="/planet-travel/cities/${city.slug}.html" class="btn-outline-gold" style="margin:0 1rem 1rem;">Explore</a>
+            <p>${city.description}</p>
+            <a href="/planet-travel/cities/${city.slug}.html" class="btn-gold" style="display:inline-block;margin:0 1rem 1rem;">Explore</a>
           `;
           container.appendChild(card);
         });
       });
-  }
-  const hathi = document.querySelector('.chotu-hathi');
-  if (hathi) {
-    hathi.addEventListener('click', () => alert('Chotu Hathi says: “I know a secret palace…” 💫'));
   }
 });

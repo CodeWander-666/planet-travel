@@ -1,30 +1,51 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const mapEl = document.getElementById('train-map');
-  if (!mapEl) return;
-  const map = L.map('train-map').setView([23.5, 78.5], 6);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
-  function updateTrains() {
-    fetch('/planet-travel/train-status/live-trains.json')
-      .then(r => r.json())
-      .then(data => {
-        map.eachLayer(layer => {
-          if (layer instanceof L.Marker) map.removeLayer(layer);
-        });
-        data.trains.forEach(train => {
-          if (train.lat && train.lon) {
-            const icon = L.divIcon({
-              className: 'gold-train-icon',
-              html: '🚂',
-              iconSize: [30, 30]
-            });
-            L.marker([train.lat, train.lon], {icon}).addTo(map)
-              .bindPopup(`<b>${train.name}</b><br>${train.status}`);
-          }
-        });
+let stations = [];
+fetch('/planet-travel/datasets/stations.json')
+  .then(r => r.json())
+  .then(data => stations = data);
+
+function autocomplete(inputId) {
+  const inp = document.getElementById(inputId);
+  const list = document.createElement('div');
+  list.className = 'autocomplete-items';
+  inp.parentNode.appendChild(list);
+  inp.addEventListener('input', function() {
+    const val = this.value.toLowerCase();
+    list.innerHTML = '';
+    if (!val) return;
+    const matches = stations.filter(s => s.name.toLowerCase().includes(val)).slice(0,8);
+    matches.forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'autocomplete-item';
+      div.innerHTML = `${s.name} (${s.code})`;
+      div.addEventListener('click', () => {
+        inp.value = s.code + ' - ' + s.name;
+        list.innerHTML = '';
       });
-  }
-  updateTrains();
-  setInterval(updateTrains, 30000);
-});
+      list.appendChild(div);
+    });
+  });
+}
+
+function searchTrains() {
+  const from = document.getElementById('from-station').value.split(' - ')[0];
+  const to = document.getElementById('to-station').value.split(' - ')[0];
+  if(!from || !to) return alert('Select both stations');
+  fetch(`/planet-travel/datasets/trains-between/${from}-${to}.json`)
+    .then(r => r.json())
+    .then(data => displayTrains(data));
+}
+
+function displayTrains(trains) {
+  const list = document.getElementById('train-results');
+  list.innerHTML = trains.map(t => `
+    <div class="glass" style="padding:1rem; margin:1rem 0;">
+      <h4>${t.number} - ${t.name}</h4>
+      <p>Dep: ${t.departure} | Arr: ${t.arrival} | ${t.duration}</p>
+      <button class="btn-gold" onclick="trackTrain('${t.number}')">Track Live</button>
+    </div>
+  `).join('');
+}
+
+function trackTrain(trainNo) {
+  window.location.href = `/planet-travel/train-live.html?train=${trainNo}`;
+}

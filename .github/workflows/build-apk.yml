@@ -1,0 +1,24 @@
+name: Build Luxury APK
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Build APK (WebView wrapper)
+        run: |
+          npx react-native init PlanetTravelApp --directory mobile
+          cd mobile && npm install react-native-webview
+          npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+          cd android && ./gradlew assembleRelease
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PlanetTravel-APK
+          path: mobile/android/app/build/outputs/apk/release/app-release.apk

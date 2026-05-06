@@ -1,0 +1,23 @@
+name: Regenerate Site & Deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install jinja2
+      - name: Generate city pages
+        run: python automation/generate_pages.py
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add cities/ || true
+          git commit -m "Auto‑generate city pages" || exit 0
+          git push

@@ -34,10 +34,10 @@ def generate_related_cards(current_slug):
     for c in selected:
         cards.append(f'''
         <div class="city-card">
-          <img src="/planetandtravel/assets/watercolor/{c['slug']}.jpg" alt="Luxury {c['name_en']}">
+          <img src="/planet-travel/assets/watercolor/{c['slug']}.jpg" alt="Luxury {c['name_en']}">
           <h3>{c['name_en']}</h3>
           <p>{c['description']}</p>
-          <a href="/planetandtravel/cities/{c['slug']}.html" class="btn-outline-gold">Discover</a>
+          <a href="/planet-travel/cities/{c['slug']}.html" class="btn-outline-gold">Discover</a>
         </div>''')
     return '\n'.join(cards)
 
@@ -72,7 +72,7 @@ for city in cities:
     html = template.render(
         meta_title=meta_title,
         meta_desc=meta_desc,
-        site_url="planetandtravel.github.io/planetandtravel",
+        site_url="CodeWander-666.github.io/planet-travel"
         slug=city['slug'],
         schema=json.dumps(schema, indent=2),
         h1=f"Luxury {city['name_en']} Travel: Your Royal Concierge",

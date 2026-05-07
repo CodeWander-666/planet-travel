@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Live Train | Planet&Travel</title>
 <link rel="stylesheet" href="css/luxury.css"><style>
-  .journey-svg{max-width:100%;height:auto;margin:2rem auto;display:block;}
-  .info-panel{max-width:600px;margin:1rem auto;}
+  .journey-svg{max-width:900px;height:auto;margin:2rem auto;display:block;}
+  .info-panel{max-width:700px;margin:1rem auto;}
 </style></head><body><nav class="nav-luxury"><a href="/planet-travel/" class="nav-logo">Planet&Travel</a></nav>
 <main style="margin-top:100px;text-align:center;"><div id="info" class="glass info-panel" style="padding:1rem;">Loading journey data...</div>
 <svg id="journey-svg" class="journey-svg" viewBox="0 0 900 150" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -10,68 +10,113 @@ const p = new URLSearchParams(window.location.search);
 const trainNo = p.get('train');
 const info = document.getElementById('info');
 const svg = document.getElementById('journey-svg');
+let stationsData = [];
 if (!trainNo) info.innerHTML = 'No train number provided.';
+
+// Load the station coordinates database once
+fetch('/planet-travel/datasets/all-india-stations-with-coords.json')
+  .then(r => r.json())
+  .then(data => { stationsData = data; });
 
 async function loadJourney() {
   try {
-    const routeRes = await fetch(`/planet-travel/datasets/train-routes/${trainNo}.json`);
-    if (!routeRes.ok) { info.innerHTML = 'Route map unavailable for this train.'; return; }
-    const route = await routeRes.json();
-    renderSVG(route.stations || []);
-    updatePosition();  // poll live location
-    setInterval(updatePosition, 15000);
-  } catch (e) {
-    info.innerHTML = 'Error loading journey data.';
+    // 1. Fetch the train route from erail.in
+    const routeUrl = `https://corsproxy.io/?${encodeURIComponent(`http://erail.in/rail/getTrainRoute.aspx?TrainNo=${trainNo}`)}`;
+    const routeResp = await fetch(routeUrl);
+    if (!routeResp.ok) { info.innerHTML = 'Route map unavailable for this train.'; return; }
+    const routeText = await routeResp.text();
+    const routeStations = parseRouteResponse(routeText, stationsData);
+    renderSVG(routeStations);
+    updatePosition(routeStations);  // initial live position
+    setInterval(() => updatePosition(routeStations), 15000);
+  } catch (e) { info.innerHTML = 'Error loading journey data.'; }
+}
+
+function parseRouteResponse(text, stationDb) {
+  const stations = [];
+  const entries = text.split('^');
+  for (let i = 1; i < entries.length; i++) {
+    const fields = entries[i].split('~');
+    if (fields.length >= 4) {
+      const code = fields[0].trim();
+      const name = fields[1].trim();
+      const platform = fields[2].trim();
+      // Find coordinates from the local database
+      const dbEntry = stationDb.find(s => s.code === code);
+      const lat = dbEntry ? dbEntry.lat : 0;
+      const lon = dbEntry ? dbEntry.lon : 0;
+      stations.push({code, name, platform, lat, lon});
+    }
   }
+  return stations;
 }
 
 function renderSVG(stations) {
   svg.innerHTML = '';
   const spacing = 800 / (stations.length - 1 || 1);
-  // track line
+  // Track line
   const line = document.createElementNS('http://www.w3.org/2000/svg','line');
   line.setAttribute('x1',20); line.setAttribute('y1',75); line.setAttribute('x2',820); line.setAttribute('y2',75);
   line.setAttribute('stroke','#D4AF37'); line.setAttribute('stroke-width',2); line.setAttribute('stroke-dasharray','8 4');
   svg.appendChild(line);
-  stations.forEach((st,i) => {
+  // Stations
+  stations.forEach((st, i) => {
     const cx = 20 + i * spacing;
     const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
     circle.setAttribute('cx',cx); circle.setAttribute('cy',75); circle.setAttribute('r',5); circle.setAttribute('fill','#D4AF37');
     svg.appendChild(circle);
     const text = document.createElementNS('http://www.w3.org/2000/svg','text');
-    text.setAttribute('x',cx); text.setAttribute('y',55); text.setAttribute('fill','#F5E7B2'); text.setAttribute('font-size','10');
-    text.setAttribute('text-anchor','middle'); text.textContent = st.code || st.name;
+    text.setAttribute('x',cx); text.setAttribute('y',55); text.setAttribute('fill','#F5E7B2'); text.setAttribute('font-size','9');
+    text.setAttribute('text-anchor','middle'); text.textContent = st.name.split(' ')[0]; // Show first word of name
     svg.appendChild(text);
-    // platform info
     if(st.platform){
       const platText = document.createElementNS('http://www.w3.org/2000/svg','text');
       platText.setAttribute('x',cx); platText.setAttribute('y',95); platText.setAttribute('fill','#aaa');
-      platText.setAttribute('font-size','9'); platText.setAttribute('text-anchor','middle');
+      platText.setAttribute('font-size','8'); platText.setAttribute('text-anchor','middle');
       platText.textContent = 'PF ' + st.platform; svg.appendChild(platText);
     }
   });
-  // train icon (initially hidden)
+  // Train icon (initially hidden)
   const trainIcon = document.createElementNS('http://www.w3.org/2000/svg','g');
   trainIcon.innerHTML = '<polygon points="0,-12 18,0 0,12" fill="#D4AF37"/>';
   trainIcon.setAttribute('id','train-icon'); svg.appendChild(trainIcon);
 }
 
-async function updatePosition() {
+async function updatePosition(routeStations) {
   try {
-    const liveRes = await fetch('/planet-travel/train-status/live-trains.json');
-    const liveData = await liveRes.json();
-    const train = liveData.trains?.find(t => t.trainNo === trainNo);
-    const icon = svg.getElementById('train-icon');
-    if (!train || !icon) return;
-    info.innerHTML = `<h2>${train.trainName}</h2><p><strong>Status:</strong> ${train.statusNote}</p><p><small>Updated: ${new Date(liveData.updated).toLocaleTimeString()}</small></p>`;
-    // find station index to position icon
-    const routeRes = await fetch(`/planet-travel/datasets/train-routes/${trainNo}.json`);
-    if (!routeRes.ok) return;
-    const route = await routeRes.json();
-    const idx = route.stations.findIndex(s => s.code && train.lastStation?.toUpperCase().includes(s.code.toUpperCase()));
-    const spacing = 800 / (route.stations.length - 1 || 1);
-    const x = 20 + (idx >= 0 ? idx : 0) * spacing;
-    icon.setAttribute('transform', `translate(${x-9}, 63)`);
+    // Fetch live status from runningstatus.in
+    const today = new Date().toISOString().slice(0,10).replace(/-/g,'');
+    const liveUrl = `https://corsproxy.io/?${encodeURIComponent(`https://runningstatus.in/status/${trainNo}-on-${today}`)}`;
+    const resp = await fetch(liveUrl);
+    if (!resp.ok) return;
+    const htmlText = await resp.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlText, 'text/html');
+    const table = doc.querySelector('table');
+    let lastStation = '', statusNote = 'Running';
+    if (table) {
+      const rows = table.querySelectorAll('tr');
+      for (const row of rows) {
+        const cols = row.querySelectorAll('td');
+        if (cols.length >= 4) {
+          const stnName = cols[0].textContent.trim();
+          if (stnName && !stnName.includes('Destination')) {
+            lastStation = stnName;
+            statusNote = cols[3].textContent.trim() || 'On time';
+          }
+        }
+      }
+    }
+    info.innerHTML = `<h2>Train ${trainNo}</h2><p><strong>Status:</strong> ${statusNote}</p><p><strong>Last Station:</strong> ${lastStation}</p><p><small>Updated: ${new Date().toLocaleTimeString()}</small></p>`;
+
+    // Find the station index in the route
+    const idx = routeStations.findIndex(s => s.name && lastStation.includes(s.name));
+    if (idx >= 0) {
+      const spacing = 800 / (routeStations.length - 1 || 1);
+      const x = 20 + idx * spacing;
+      const icon = svg.getElementById('train-icon');
+      if (icon) icon.setAttribute('transform', `translate(${x-9}, 63)`);
+    }
   } catch (e) { console.error(e); }
 }
 

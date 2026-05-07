@@ -1,0 +1,32 @@
+name: Cache Popular MP Routes (using public API)
+on:
+  schedule:
+    - cron: '0 */6 * * *'    # every 6 hours
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  cache:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Fetch popular routes from indian-rail-api
+        run: |
+          mkdir -p datasets/trains-between
+          PAIRS=("GWL INDB" "GWL BPL" "INDB BPL" "INDB JBP" "BPL JBP" "GWL JHS" "JHS BPL" "UJN INDB" "BPL UJN" "BPL ET")
+          for pair in "${PAIRS[@]}"; do
+            from=$(echo $pair | cut -d' ' -f1)
+            to=$(echo $pair | cut -d' ' -f2)
+            curl -s "https://indian-railway-api.cyclic.app/trains/betweenStations/?from=$from&to=$to" -o /tmp/$from-$to.json
+            if [ -s /tmp/$from-$to.json ]; then
+              cat /tmp/$from-$to.json | python3 -c "import sys,json; d=json.load(sys.stdin); print(len(d.get('data',[])))" | xargs -I{} echo "$from-$to: {} trains"
+              mv /tmp/$from-$to.json datasets/trains-between/$from-$to.json
+            fi
+          done
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🚂 Update cached train routes"
+          file_pattern: datasets/trains-between/

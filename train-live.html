@@ -10,47 +10,80 @@ const p = new URLSearchParams(window.location.search);
 const trainNo = p.get('train');
 const info = document.getElementById('info');
 const svg = document.getElementById('journey-svg');
-let stationsData = [];
+let stationsDb = [];
+
 if (!trainNo) info.innerHTML = 'No train number provided.';
 
-// Load the station coordinates database once
+// Load station coordinate database
 fetch('/planet-travel/datasets/all-india-stations-with-coords.json')
   .then(r => r.json())
-  .then(data => { stationsData = data; });
+  .then(data => { stationsDb = data; });
 
-async function loadJourney() {
+// 1) Fetch route schedule from pre‑computed cache (RunningStatus.in)
+async function loadRoute() {
   try {
-    // 1. Fetch the train route from erail.in
-    const routeUrl = `https://corsproxy.io/?${encodeURIComponent(`http://erail.in/rail/getTrainRoute.aspx?TrainNo=${trainNo}`)}`;
-    const routeResp = await fetch(routeUrl);
-    if (!routeResp.ok) { info.innerHTML = 'Route map unavailable for this train.'; return; }
-    const routeText = await routeResp.text();
-    const routeStations = parseRouteResponse(routeText, stationsData);
-    renderSVG(routeStations);
-    updatePosition(routeStations);  // initial live position
-    setInterval(() => updatePosition(routeStations), 15000);
-  } catch (e) { info.innerHTML = 'Error loading journey data.'; }
-}
-
-function parseRouteResponse(text, stationDb) {
-  const stations = [];
-  const entries = text.split('^');
-  for (let i = 1; i < entries.length; i++) {
-    const fields = entries[i].split('~');
-    if (fields.length >= 4) {
-      const code = fields[0].trim();
-      const name = fields[1].trim();
-      const platform = fields[2].trim();
-      // Find coordinates from the local database
-      const dbEntry = stationDb.find(s => s.code === code);
-      const lat = dbEntry ? dbEntry.lat : 0;
-      const lon = dbEntry ? dbEntry.lon : 0;
-      stations.push({code, name, platform, lat, lon});
+    const cacheUrl = `/planet-travel/datasets/train-routes/${trainNo}.json`;
+    const resp = await fetch(cacheUrl);
+    if (!resp.ok) {
+      // Fallback: scrape runningstatus.in directly
+      const scheduleUrl = `https://corsproxy.io/?${encodeURIComponent(`https://runningstatus.in/status/${trainNo}`)}`;
+      const htmlText = await (await fetch(scheduleUrl)).text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlText, 'text/html');
+      const table = doc.querySelector('table');
+      if (!table) { info.innerHTML = 'Route map unavailable for this train.'; return; }
+      const rows = table.querySelectorAll('tr');
+      const routeStations = [];
+      for (const row of rows) {
+        const cols = row.querySelectorAll('td');
+        if (cols.length >= 4 && !cols[0].textContent.includes('Destination')) {
+          const code = cols[1].textContent.trim();  // station code is in 2nd column
+          const name = cols[0].textContent.trim();
+          const platform = cols[2].textContent.trim() || '';
+          const dbEntry = stationsDb.find(s => s.code === code);
+          routeStations.push({code, name, platform, lat: dbEntry?.lat || 0, lon: dbEntry?.lon || 0});
+        }
+      }
+      renderSVG(routeStations);
+    } else {
+      const routeStations = await resp.json();
+      renderSVG(routeStations.stations || routeStations);
     }
-  }
-  return stations;
+  } catch (e) { console.error(e); info.innerHTML = 'Error loading route.'; }
 }
 
+// 2) Fetch live status from RailYatri (LD‑JSON) – updated every 15 sec
+async function updatePosition() {
+  try {
+    const liveUrl = `https://corsproxy.io/?${encodeURIComponent(`https://www.railyatri.in/live-train-running-status/${trainNo}`)}`;
+    const htmlText = await (await fetch(liveUrl)).text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlText, 'text/html');
+    const script = doc.querySelector('script[type="application/ld+json"]');
+    if (!script) return;
+    const data = JSON.parse(script.textContent);
+    info.innerHTML = `<h2>${data.name || trainNo}</h2>
+      <p><strong>Status:</strong> ${data.trainStatus || 'Running'} | <strong>Delay:</strong> ${data.delay || 'On time'}</p>
+      <p><strong>Current Location:</strong> ${data.currentLocation || 'N/A'}</p>
+      <p><strong>Next Station:</strong> ${data.nextStation || 'N/A'}</p>
+      <p><small>Updated: ${new Date().toLocaleTimeString()}</small></p>`;
+
+    // Move train icon on SVG
+    const icon = svg.getElementById('train-icon');
+    if (!icon) return;
+    const routeResp = await fetch(`/planet-travel/datasets/train-routes/${trainNo}.json`);
+    if (!routeResp.ok) return;
+    const routeData = await routeResp.json();
+    const stations = routeData.stations || routeData;
+    const idx = stations.findIndex(s => s.name && data.currentLocation?.includes(s.name));
+    if (idx >= 0) {
+      const spacing = 800 / (stations.length - 1 || 1);
+      icon.setAttribute('transform', `translate(${20 + idx * spacing - 9}, 63)`);
+    }
+  } catch (e) { console.error(e); }
+}
+
+// SVG rendering helper
 function renderSVG(stations) {
   svg.innerHTML = '';
   const spacing = 800 / (stations.length - 1 || 1);
@@ -67,7 +100,7 @@ function renderSVG(stations) {
     svg.appendChild(circle);
     const text = document.createElementNS('http://www.w3.org/2000/svg','text');
     text.setAttribute('x',cx); text.setAttribute('y',55); text.setAttribute('fill','#F5E7B2'); text.setAttribute('font-size','9');
-    text.setAttribute('text-anchor','middle'); text.textContent = st.name.split(' ')[0]; // Show first word of name
+    text.setAttribute('text-anchor','middle'); text.textContent = st.name.split(' ')[0];
     svg.appendChild(text);
     if(st.platform){
       const platText = document.createElementNS('http://www.w3.org/2000/svg','text');
@@ -76,49 +109,15 @@ function renderSVG(stations) {
       platText.textContent = 'PF ' + st.platform; svg.appendChild(platText);
     }
   });
-  // Train icon (initially hidden)
+  // Train icon
   const trainIcon = document.createElementNS('http://www.w3.org/2000/svg','g');
   trainIcon.innerHTML = '<polygon points="0,-12 18,0 0,12" fill="#D4AF37"/>';
   trainIcon.setAttribute('id','train-icon'); svg.appendChild(trainIcon);
 }
 
-async function updatePosition(routeStations) {
-  try {
-    // Fetch live status from runningstatus.in
-    const today = new Date().toISOString().slice(0,10).replace(/-/g,'');
-    const liveUrl = `https://corsproxy.io/?${encodeURIComponent(`https://runningstatus.in/status/${trainNo}-on-${today}`)}`;
-    const resp = await fetch(liveUrl);
-    if (!resp.ok) return;
-    const htmlText = await resp.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlText, 'text/html');
-    const table = doc.querySelector('table');
-    let lastStation = '', statusNote = 'Running';
-    if (table) {
-      const rows = table.querySelectorAll('tr');
-      for (const row of rows) {
-        const cols = row.querySelectorAll('td');
-        if (cols.length >= 4) {
-          const stnName = cols[0].textContent.trim();
-          if (stnName && !stnName.includes('Destination')) {
-            lastStation = stnName;
-            statusNote = cols[3].textContent.trim() || 'On time';
-          }
-        }
-      }
-    }
-    info.innerHTML = `<h2>Train ${trainNo}</h2><p><strong>Status:</strong> ${statusNote}</p><p><strong>Last Station:</strong> ${lastStation}</p><p><small>Updated: ${new Date().toLocaleTimeString()}</small></p>`;
-
-    // Find the station index in the route
-    const idx = routeStations.findIndex(s => s.name && lastStation.includes(s.name));
-    if (idx >= 0) {
-      const spacing = 800 / (routeStations.length - 1 || 1);
-      const x = 20 + idx * spacing;
-      const icon = svg.getElementById('train-icon');
-      if (icon) icon.setAttribute('transform', `translate(${x-9}, 63)`);
-    }
-  } catch (e) { console.error(e); }
-}
-
-loadJourney();
+// Start the process
+loadRoute().then(() => {
+  updatePosition();
+  setInterval(updatePosition, 15000);
+});
 </script></body></html>

@@ -1,12 +1,9 @@
 let stations = [];
-
-// Load the comprehensive station list with coordinates
 fetch('/planet-travel/datasets/all-india-stations-with-coords.json')
   .then(r => r.json())
   .then(data => { stations = data; console.log('✅ ' + stations.length + ' stations loaded'); })
   .catch(() => {
     console.warn('Station fetch failed – using embedded list');
-    // A minimal fallback list
     stations = [
       {"code":"GWL","name":"Gwalior Jn","lat":26.2183,"lon":78.1828},
       {"code":"INDB","name":"Indore Jn Bg","lat":22.7196,"lon":75.8577},
@@ -34,28 +31,34 @@ function autocomplete(inputId){
       list.appendChild(d);
     });
   });
-  // Keyboard navigation (abbreviated for clarity, same as before)
-  input.addEventListener('keydown',function(e){ /* ... */ });
+  input.addEventListener('keydown',function(e){
+    const items=list.getElementsByClassName('autocomplete-item');
+    if(!items.length)return;
+    if(e.key==='ArrowDown'){e.preventDefault();idx=Math.min(idx+1,items.length-1);highlight(items,idx);}
+    else if(e.key==='ArrowUp'){e.preventDefault();idx=Math.max(idx-1,0);highlight(items,idx);}
+    else if(e.key==='Enter'){e.preventDefault();if(idx>=0)items[idx].click();}
+  });
+  function highlight(items,i){for(let j=0;j<items.length;j++)items[j].classList.remove('selected');if(i>=0)items[i].classList.add('selected');}
   document.addEventListener('click',e=>{if(!wrapper.contains(e.target))list.innerHTML='';});
 }
 
+// Search trains between stations via erail.in timetable
 function searchTrains(){
   const fromCode = document.getElementById('from-station').value.split(' - ')[0].trim();
   const toCode = document.getElementById('to-station').value.split(' - ')[0].trim();
   if(!fromCode||!toCode){alert('Please select both stations');return;}
   const res = document.getElementById('train-results');
-  res.innerHTML='<p style="color:var(--gold-light);padding:1rem;">🔍 Searching trains...</p>';
+  res.innerHTML='<p>🔍 Searching trains...</p>';
 
-  // Primary data source: erail.in timetable
   fetch(`https://corsproxy.io/?${encodeURIComponent(`http://erail.in/rail/getTrains.aspx?Station_From=${fromCode}&Station_To=${toCode}&DataSource=0&Language=0&Cache=true`)}`)
     .then(r => r.text())
     .then(text => {
       if(!text || text.length < 10) throw new Error('empty');
       const trains = parseErailResponse(text);
       if(trains.length > 0) displayTrains(trains);
-      else res.innerHTML='<p style="color:var(--gold-light);">No trains found. <a href="/planet-travel/concierge.html">Ask our concierge</a>.</p>';
+      else res.innerHTML='<p>No trains found. <a href="/planet-travel/concierge.html">Ask our concierge</a>.</p>';
     })
-    .catch(() => res.innerHTML='<p style="color:var(--gold-light);">Service temporarily unavailable. Please try again.</p>');
+    .catch(() => res.innerHTML='<p>Service temporarily unavailable. Please try again.</p>');
 }
 
 function parseErailResponse(text){

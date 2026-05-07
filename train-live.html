@@ -1,32 +1,79 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Live Train | Planet&Travel</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<link rel="stylesheet" href="css/luxury.css"><style>.train-map{height:70vh;}</style>
-</head><body><nav class="nav-luxury"><a href="/planet-travel/" class="nav-logo">Planet&Travel</a></nav>
-<main style="margin-top:100px;"><div id="map" class="train-map"></div>
-<div id="info" class="glass" style="padding:1rem;margin:1rem;">Loading train data...</div></main>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-const p=new URLSearchParams(window.location.search);const tn=p.get('train');const info=document.getElementById('info');
-if(!tn)info.innerHTML='No train specified.';
-const map=L.map('map').setView([23.5,78.5],6);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© CartoDB',subdomains:'abcd',maxZoom:19}).addTo(map);
-let markers=[];
-// Coordinate lookup for major stations
-const coordLookup={'GWL':[26.2183,78.1828],'INDB':[22.7196,75.8577],'BPL':[23.2599,77.4126],'JHS':[25.4445,78.5680],'AGC':[27.1558,78.0060],'ET':[23.1825,79.9882],'UJN':[23.1765,75.7885],'JBP':[23.1815,79.9864],'NDLS':[28.6419,77.2194],'DBA':[25.9667,78.05],'SHR':[23.4866,79.9143]};
-async function update(){
-  try{
-    const r=await fetch('/planet-travel/train-status/live-trains.json');
-    const d=await r.json();
-    const t=d.trains?d.trains.find(tr=>tr.trainNo===tn):null;
-    if(t){
-      info.innerHTML='<h2>'+t.trainName+' ('+t.trainNo+')</h2><p><strong>Status:</strong> '+t.statusNote+'</p><p><strong>Last Station:</strong> '+(t.lastStation||'N/A')+'</p><p><small>Updated: '+new Date(d.updated).toLocaleTimeString()+'</small></p>';
-      markers.forEach(m=>map.removeLayer(m));markers=[];
-      if(t.currentLat&&t.currentLon){
-        const icon=L.divIcon({className:'gold-train-icon',html:'<div style="font-size:24px;">🚂</div>',iconSize:[30,30],iconAnchor:[15,15]});
-        markers.push(L.marker([t.currentLat,t.currentLon],{icon}).addTo(map).bindPopup(t.trainName));
-      }
-    }else{info.innerHTML='<p>Train '+tn+' not currently tracked. <a href="/planet-travel/concierge.html">Ask our concierge</a>.</p>';}
-  }catch(e){info.innerHTML='Error loading data.';}
+<link rel="stylesheet" href="css/luxury.css"><style>
+  .journey-svg{max-width:100%;height:auto;margin:2rem auto;display:block;}
+  .info-panel{max-width:600px;margin:1rem auto;}
+</style></head><body><nav class="nav-luxury"><a href="/planet-travel/" class="nav-logo">Planet&Travel</a></nav>
+<main style="margin-top:100px;text-align:center;"><div id="info" class="glass info-panel" style="padding:1rem;">Loading journey data...</div>
+<svg id="journey-svg" class="journey-svg" viewBox="0 0 900 150" xmlns="http://www.w3.org/2000/svg"></svg>
+</main><script>
+const p = new URLSearchParams(window.location.search);
+const trainNo = p.get('train');
+const info = document.getElementById('info');
+const svg = document.getElementById('journey-svg');
+if (!trainNo) info.innerHTML = 'No train number provided.';
+
+async function loadJourney() {
+  try {
+    const routeRes = await fetch(`/planet-travel/datasets/train-routes/${trainNo}.json`);
+    if (!routeRes.ok) { info.innerHTML = 'Route map unavailable for this train.'; return; }
+    const route = await routeRes.json();
+    renderSVG(route.stations || []);
+    updatePosition();  // poll live location
+    setInterval(updatePosition, 15000);
+  } catch (e) {
+    info.innerHTML = 'Error loading journey data.';
+  }
 }
-update();setInterval(update,30000);
+
+function renderSVG(stations) {
+  svg.innerHTML = '';
+  const spacing = 800 / (stations.length - 1 || 1);
+  // track line
+  const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1',20); line.setAttribute('y1',75); line.setAttribute('x2',820); line.setAttribute('y2',75);
+  line.setAttribute('stroke','#D4AF37'); line.setAttribute('stroke-width',2); line.setAttribute('stroke-dasharray','8 4');
+  svg.appendChild(line);
+  stations.forEach((st,i) => {
+    const cx = 20 + i * spacing;
+    const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    circle.setAttribute('cx',cx); circle.setAttribute('cy',75); circle.setAttribute('r',5); circle.setAttribute('fill','#D4AF37');
+    svg.appendChild(circle);
+    const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+    text.setAttribute('x',cx); text.setAttribute('y',55); text.setAttribute('fill','#F5E7B2'); text.setAttribute('font-size','10');
+    text.setAttribute('text-anchor','middle'); text.textContent = st.code || st.name;
+    svg.appendChild(text);
+    // platform info
+    if(st.platform){
+      const platText = document.createElementNS('http://www.w3.org/2000/svg','text');
+      platText.setAttribute('x',cx); platText.setAttribute('y',95); platText.setAttribute('fill','#aaa');
+      platText.setAttribute('font-size','9'); platText.setAttribute('text-anchor','middle');
+      platText.textContent = 'PF ' + st.platform; svg.appendChild(platText);
+    }
+  });
+  // train icon (initially hidden)
+  const trainIcon = document.createElementNS('http://www.w3.org/2000/svg','g');
+  trainIcon.innerHTML = '<polygon points="0,-12 18,0 0,12" fill="#D4AF37"/>';
+  trainIcon.setAttribute('id','train-icon'); svg.appendChild(trainIcon);
+}
+
+async function updatePosition() {
+  try {
+    const liveRes = await fetch('/planet-travel/train-status/live-trains.json');
+    const liveData = await liveRes.json();
+    const train = liveData.trains?.find(t => t.trainNo === trainNo);
+    const icon = svg.getElementById('train-icon');
+    if (!train || !icon) return;
+    info.innerHTML = `<h2>${train.trainName}</h2><p><strong>Status:</strong> ${train.statusNote}</p><p><small>Updated: ${new Date(liveData.updated).toLocaleTimeString()}</small></p>`;
+    // find station index to position icon
+    const routeRes = await fetch(`/planet-travel/datasets/train-routes/${trainNo}.json`);
+    if (!routeRes.ok) return;
+    const route = await routeRes.json();
+    const idx = route.stations.findIndex(s => s.code && train.lastStation?.toUpperCase().includes(s.code.toUpperCase()));
+    const spacing = 800 / (route.stations.length - 1 || 1);
+    const x = 20 + (idx >= 0 ? idx : 0) * spacing;
+    icon.setAttribute('transform', `translate(${x-9}, 63)`);
+  } catch (e) { console.error(e); }
+}
+
+loadJourney();
 </script></body></html>

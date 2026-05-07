@@ -1,0 +1,35 @@
+name: Update Train Data (Routes & Live)
+on:
+  schedule:
+    - cron: '0 * * * *'   # hourly for routes
+    - cron: '*/2 * * * *' # 2-min for live
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  hourly-routes:
+    if: github.event.schedule == '0 * * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install requests beautifulsoup4
+      - run: python automation/scrape_trains_between_and_filter.py
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🔄 Update train schedules & routes"
+          file_pattern: "datasets/trains-between/ datasets/train-routes/"
+  live-status:
+    if: github.event.schedule == '*/2 * * * *' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install requests beautifulsoup4
+      - run: python automation/scrape_live_status.py
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🚂 Update live train status"
+          file_pattern: train-status/live-trains.json

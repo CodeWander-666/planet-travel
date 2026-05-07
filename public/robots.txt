@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://codewander-666.github.io/planet-travel/sitemap.xml

@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --navy-950: #0a1628;
+  --gold-400: #D4AF37;
+  --cream-100: #FFF8F0;
+  --skin: #F5E6D3;
+}
+
+* { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; }
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+/* Glass morphism */
+.glass {
+  background: rgba(10, 22, 40, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+.glass-light {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+/* Header looping gradient (navy → white → skin) */
+.header-bg {
+  background: linear-gradient(135deg, #0a1628 0%, #4a6fa5 30%, #FFF8F0 60%, #F5E6D3 80%, #0a1628 100%);
+  background-size: 400% 400%;
+  animation: headerShift 15s ease infinite;
+  opacity: 0.85;
+}
+@keyframes headerShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Text gradient (gold) */
+.text-gradient {
+  background: linear-gradient(135deg, #D4AF37 0%, #F5E08E 50%, #D4AF37 100%);
+  background-size: 300% 300%;
+  animation: gradientShift 8s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Psychology hero gradient – deeper and warm */
+.hero-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+  background-size: 400% 400%;
+  animation: heroGradient 12s ease infinite;
+}
+@keyframes heroGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 3D card classic */
+.card-3d {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-3d:hover {
+  transform: rotateY(10deg) rotateX(-5deg) scale(1.03);
+}
+
+/* Luxury service card – extra glow and animated border */
+.service-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  background: linear-gradient(45deg, #D4AF37, #F5E08E, #D4AF37, #F5E08E);
+  background-size: 400% 400%;
+  animation: borderGlow 4s linear infinite;
+  border-radius: 20px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.service-card:hover::before {
+  opacity: 1;
+}
+
+@keyframes borderGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Train container – dark, fast, smoke */
+.train-container {
+  position: absolute;
+  bottom: 0; left: 0; width: 100%; height: 260px;
+  overflow: hidden; opacity: 0.08; pointer-events: none;
+}
+.train-svg { width: 100%; height: 100%; }
+
+/* Review marquee */
+.review-carousel {
+  animation: marquee 40s linear infinite;
+}
+.review-carousel:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Globe rotation */
+@keyframes spinGlobe {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.rotating-globe {
+  animation: spinGlobe 20s linear infinite;
+  transform-origin: center;
+}
+
+/* Video hero background */
+.video-hero {
+  position: relative;
+  overflow: hidden;
+}
+.video-hero video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: 0;
+}
+.video-hero .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 22, 40, 0.7);
+  z-index: 1;
+}
+.video-hero .hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Smoky gradient header (white → skyblue → skin) */
+.header-bg {
+  background: linear-gradient(135deg,
+    #ffffff 0%,
+    #e0f0ff 20%,   /* light sky */
+    #b3d9ff 40%,   /* soft skyblue */
+    #f5e6d3 60%,   /* skin / cream */
+    #ffffff 80%,
+    #e0f0ff 100%);
+  background-size: 400% 400%;
+  animation: headerSmoke 16s ease infinite;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+@keyframes headerSmoke {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 3D depth button styles for header */
+.nav-btn {
+  position: relative;
+  padding: 0.6rem 1.6rem;
+  background: linear-gradient(to bottom, #ffffff, #e6d5c3);
+  color: #0a1628;
+  font-weight: 700;
+  border-radius: 12px;
+  box-shadow:
+    0 4px 6px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.8),
+    inset 0 -2px 0 rgba(0,0,0,0.1);
+  transform: perspective(500px) rotateX(2deg);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.5px;
+}
+
+.nav-btn:hover {
+  transform: perspective(500px) rotateX(0deg) translateY(-2px);
+  box-shadow:
+    0 8px 16px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  background: linear-gradient(to bottom, #ffffff, #f0d9c0);
+}
+
+/* ── Services page custom animations ── */
+.service-hero-video {
+  position: absolute;
+  top: 50%; left: 50%;
+  min-width: 100%; min-height: 100%;
+  width: auto; height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: 0;
+}
+.service-img-hover {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s;
+  filter: brightness(0.85);
+}
+.service-img-hover:hover {
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+.faq-answer.open {
+  max-height: 300px;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.pulse-dot {
+  animation: pulseDot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+/* ── Hero video background (always covers section) ── */
+.hero-background {
+  position: relative;
+  overflow: hidden;
+}
+.hero-background video,
+.hero-background img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.hero-background .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 22, 40, 0.75);
+  z-index: 1;
+}
+.hero-background .hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── 3D video card ── */
+.video-card {
+  perspective: 800px;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.4s ease;
+  aspect-ratio: 16/9;
+}
+.video-card:hover {
+  transform: rotateY(5deg) rotateX(-3deg) scale(1.02);
+}
+.video-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Text backdrop for hero overlay (3D glass) ── */
+.text-backdrop {
+  display: inline-block;
+  background: rgba(10, 22, 40, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0.5rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* Ensure hero content doesn't collide with fixed header */
+.hero-content {
+  padding-top: 5rem;   /* accounts for fixed nav height */
+}

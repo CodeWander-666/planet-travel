@@ -1,7 +1,7 @@
 name: Update Train Data (Live + Routes)
 on:
   schedule:
-    - cron: '*/2 * * * *'   # live status every 2 min
+    - cron: '*/2 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
@@ -16,5 +16,5 @@ jobs:
       - run: python automation/scrape_live_status.py
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "🚂 Update live train data"
+          commit_message: "🚂 Update live train data & routes"
           file_pattern: "train-status/ datasets/train-routes/"

@@ -11,10 +11,13 @@ a:hover{color:#fff}
 .nav-logo{font-family:var(--font-heading);font-size:2rem;color:var(--gold)}
 .nav-links a{margin-left:2rem;color:var(--gold-light);font-weight:600}
 .nav-links a:hover{color:#fff}
-.hero-home{height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
-.hero-home h1{font-size:4rem;line-height:1.2}
-.autocomplete-wrapper{position:relative; margin-bottom:1rem}
-.autocomplete-items{position:absolute;top:100%;left:0;right:0;background:var(--glass);border-radius:0 0 8px 8px;max-height:200px;overflow-y:auto;z-index:2000}
-.autocomplete-item{padding:.8rem;cursor:pointer;color:#fff}
-.autocomplete-item:hover,.autocomplete-item.selected{background:var(--gold);color:#000}
-footer{text-align:center;padding:2rem;border-top:1px solid var(--glass-border);margin-top:4rem}
+.journey-container{max-width:900px;margin:120px auto 2rem;padding:0 1rem}
+.station-row{display:flex;align-items:center;padding:0.8rem 0;border-bottom:1px solid rgba(212,175,55,0.1);position:relative}
+.station-dot{width:12px;height:12px;border-radius:50%;background:var(--gold);margin-right:1rem;flex-shrink:0}
+.station-info{flex:1}
+.station-name{color:var(--gold-light);font-weight:600}
+.station-platform{color:#aaa;font-size:0.85rem;margin-left:0.5rem}
+.station-time{color:#aaa;font-size:0.85rem;text-align:right}
+.train-icon{position:absolute;left:-18px;font-size:1.5rem;transition:top 0.5s ease}
+.loading{text-align:center;padding:3rem;color:var(--gold-light)}
+footer{text-align:center;padding:2rem;border-top:1px solid var(--glass-border);margin-top:4rem;color:#666}

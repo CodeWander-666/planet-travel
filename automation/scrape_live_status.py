@@ -1,4 +1,4 @@
-import requests, json, os, datetime, re
+import requests, json, os, datetime
 from bs4 import BeautifulSoup
 
 TRAINS = ["12138","12919","12301","12002","12421","12627","22691","14320","11126","21126"]
@@ -34,14 +34,16 @@ def get_runningstatus_route(train_no):
         stations = []
         for row in rows:
             cols = row.find_all('td')
-            if len(cols) >= 4 and 'Destination' not in cols[0].text:
-                code = cols[1].text.strip() if len(cols) > 1 else ''
-                name = cols[0].text.strip()
-                platform = cols[2].text.strip() if len(cols) > 2 else ''
-                stations.append({"code": code, "name": name, "platform": platform})
+            if len(cols) >= 4:
+                name = cols[0].get_text(strip=True)
+                arrival = cols[1].get_text(strip=True)
+                departure = cols[2].get_text(strip=True)
+                platform = cols[3].get_text(strip=True) if len(cols) > 3 else ''
+                if name and not name.startswith('Destination') and not name.startswith('Station'):
+                    stations.append({"name": name, "arrival": arrival, "departure": departure, "platform": platform})
         return stations
     except Exception as e:
-        print(f"  RunningStatus error {train_no}: {e}")
+        print(f"  RunningStatus route error {train_no}: {e}")
         return []
 
 live_data = []
@@ -49,17 +51,15 @@ os.makedirs("../train-status", exist_ok=True)
 os.makedirs("../datasets/train-routes", exist_ok=True)
 
 for train in TRAINS:
-    # Live status
     status = get_railyatri_live(train)
     if status:
         live_data.append(status)
         print(f"  ✓ {train}: {status['currentLocation']}")
-    # Route cache
     route = get_runningstatus_route(train)
     if route:
         with open(f"../datasets/train-routes/{train}.json", "w") as f:
-            json.dump({"stations": route}, f, indent=2)
-        print(f"  ✓ Route for {train} cached ({len(route)} stations)")
+            json.dump(route, f, indent=2)
+        print(f"  ✓ Route cached: {len(route)} stations")
 
 with open("../train-status/live-trains.json", "w") as f:
     json.dump({"updated": datetime.datetime.utcnow().isoformat(), "trains": live_data}, f, indent=2)

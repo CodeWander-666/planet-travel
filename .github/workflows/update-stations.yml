@@ -1,4 +1,4 @@
-name: Update Station Coordinate Database (Weekly)
+name: Update Station Database (Weekly)
 on:
   schedule:
     - cron: '0 0 * * 0'

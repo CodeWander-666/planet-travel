@@ -1,4 +1,4 @@
-import requests, json, re, os
+import requests, json, os
 from bs4 import BeautifulSoup
 
 def get_stations_from_wikipedia():
@@ -8,28 +8,24 @@ def get_stations_from_wikipedia():
     table = soup.find('table', {'class': 'wikitable'})
     stations = []
     if not table: return stations
-    rows = table.find_all('tr')
-    for row in rows[1:]:
+    for row in table.find_all('tr')[1:]:
         cols = row.find_all('td')
         if len(cols) >= 4:
             code = cols[0].get_text(strip=True)
             name = cols[1].get_text(strip=True)
-            coord_cell = cols[3]
-            geo_span = coord_cell.find('span', {'class': 'geo'})
-            if geo_span:
-                coords_text = geo_span.get_text(strip=True)
-                parts = coords_text.split(';')
+            geo = cols[3].find('span', {'class': 'geo'})
+            if geo:
+                parts = geo.get_text(strip=True).split(';')
                 if len(parts) == 2:
                     try:
                         lat = float(parts[0].strip())
                         lon = float(parts[1].strip())
                         stations.append({"code": code, "name": name, "lat": lat, "lon": lon})
-                    except ValueError: pass
-    print(f"Found {len(stations)} stations with coordinates.")
+                    except: pass
     return stations
 
 stations = get_stations_from_wikipedia()
 os.makedirs("../datasets", exist_ok=True)
 with open("../datasets/all-india-stations-with-coords.json", "w") as f:
     json.dump(stations, f, indent=2)
-print(f"✅ Saved {len(stations)} stations.")
+print(f"✅ {len(stations)} stations saved.")

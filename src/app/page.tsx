@@ -88,10 +88,10 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4">
             <SectionHeader title="Why Planet&Travel" subtitle="The difference is in the details" />
             <div className="grid md:grid-cols-4 gap-6">
-              <WhyUsCard id="concierge" title="Personal Concierge" description="Dedicated travel architect assigned to every booking." delay={0} />
-              <WhyUsCard id="tracking" title="Real‑Time Tracking" description="Live train status, platform numbers, and delay alerts." delay={0.1} />
-              <WhyUsCard id="reviews" title="Verified Reviews" description="Genuine feedback from 50,000+ travellers across India." delay={0.2} />
-              <WhyUsCard id="support" title="24×7 Support" description="Round‑the‑clock assistance via WhatsApp, email, and phone." delay={0.3} />
+              <WhyUsCard id="concierge" title="Personal Concierge" description="Dedicated travel architect assigned to every booking." />
+              <WhyUsCard id="tracking" title="Real‑Time Tracking" description="Live train status, platform numbers, and delay alerts." />
+              <WhyUsCard id="reviews" title="Verified Reviews" description="Genuine feedback from 50,000+ travellers across India." />
+              <WhyUsCard id="support" title="24×7 Support" description="Round‑the‑clock assistance via WhatsApp, email, and phone." />
             </div>
           </div>
         </section>
@@ -101,9 +101,9 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4">
             <SectionHeader title="Experience the Journey" subtitle="Watch how we make travel unforgettable" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <VideoCard3D webmSrc="/assets/homepage/videos/chauffeur-drives.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Chauffeur Drives" description="Luxury vehicles at your disposal" delay={0} />
-              <VideoCard3D webmSrc="/assets/homepage/videos/station-transfers.webm" posterSrc="/assets/homepage/destinations/indore.png" title="Station Transfers" description="Seamless railway & airport pickups" delay={0.1} />
-              <VideoCard3D webmSrc="/assets/homepage/videos/luxury-stays.webm" posterSrc="/assets/homepage/destinations/bhopal.png" title="Luxury Stays" description="Palace hotels & beach resorts" delay={0.2} />
+              <VideoCard3D webmSrc="/assets/homepage/videos/chauffeur-drives.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Chauffeur Drives" description="Luxury vehicles at your disposal" />
+              <VideoCard3D webmSrc="/assets/homepage/videos/station-transfers.webm" posterSrc="/assets/homepage/destinations/indore.png" title="Station Transfers" description="Seamless railway & airport pickups" />
+              <VideoCard3D webmSrc="/assets/homepage/videos/luxury-stays.webm" posterSrc="/assets/homepage/destinations/bhopal.png" title="Luxury Stays" description="Palace hotels & beach resorts" />
             </div>
           </div>
         </section>

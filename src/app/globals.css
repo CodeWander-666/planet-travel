@@ -1,3 +1,6 @@
+/* ═════════════════════════════════════════════════════════════════════
+   Planet&Travel – Luxury Production Stylesheet
+   ═════════════════════════════════════════════════════════════════════ */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
@@ -5,27 +8,42 @@
   --navy-950: #0a1628;
   --gold-400: #D4AF37;
   --cream-100: #FFF8F0;
+  --overlay-light: rgba(10,22,40,0.35);   /* was 0.75, now crystal clear */
+  --overlay-card: rgba(10,22,40,0.25);     /* barely there */
 }
 
 * { scroll-behavior: smooth; }
-body { font-family: 'Inter', sans-serif; background: #0a1628; color: #FFF8F0; }
+body {
+  font-family: 'Inter', sans-serif;
+  color: #FFF8F0;
+  /* ── Global luxury animated gradient (skyblue/purple/yellow) ── */
+  background: linear-gradient(135deg, #87CEEB 0%, #D8B4FE 40%, #FEF08A 70%, #87CEEB 100%);
+  background-size: 400% 400%;
+  animation: bodyGradient 20s ease infinite;
+}
+@keyframes bodyGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 
-/* ── Glass ── */
+/* ── Glass (translucent) ── */
 .glass {
-  background: rgba(10,22,40,0.6);
-  backdrop-filter: blur(20px);
+  background: rgba(10,22,40,0.50);
+  backdrop-filter: blur(16px);
   border: 1px solid rgba(212,175,55,0.15);
   border-radius: 16px;
 }
 .glass-light {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.06);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(212,175,55,0.1);
+  border: 1px solid rgba(212,175,55,0.10);
   border-radius: 16px;
 }
 
-/* ── Text gradient (white‑skyblue looping) ── */
+/* ── Text gradient (white‑skyblue) ── */
 .text-gradient {
   background: linear-gradient(135deg, #ffffff 0%, #87CEEB 50%, #ffffff 100%);
   background-size: 300% 300%;
@@ -44,14 +62,14 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 /* ── Text backdrop ── */
 .text-backdrop {
   display: inline-block;
-  background: rgba(10,22,40,0.75);
-  backdrop-filter: blur(12px);
+  background: rgba(10,22,40,0.55);
+  backdrop-filter: blur(8px);
   padding: 0.5rem 1.5rem;
   border-radius: 12px;
   border: 1px solid rgba(212,175,55,0.2);
 }
 
-/* ── Hero ── */
+/* ── Hero (CRYSTAL CLEAR – overlay reduced to 35%) ── */
 .hero-background {
   position: relative;
   overflow: hidden;
@@ -67,7 +85,7 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(10,22,40,0.75);
+  background: var(--overlay-light);   /* 0.35 opacity – video clearly visible */
   z-index: 1;
 }
 .hero-content {
@@ -81,7 +99,7 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
   padding: 6rem 1rem 2rem;
 }
 
-/* ── Hero gradient fallback (skyblue‑cyan‑lightgreen) ── */
+/* ── Hero gradient fallback ── */
 .hero-fallback-bg {
   background: linear-gradient(135deg, #87CEEB 0%, #00FFFF 50%, #90EE90 100%);
   background-size: 400% 400%;
@@ -104,6 +122,30 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* ── Dark pearl 3D header button ── */
+.nav-btn-dark {
+  position: relative;
+  padding: 0.6rem 1.6rem;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: #f0e6d3;
+  font-weight: 700;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow:
+    0 4px 6px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.3),
+    inset 0 -2px 0 rgba(0,0,0,0.3),
+    0 0 12px rgba(135,206,235,0.3);
+  transition: all 0.3s ease;
+}
+.nav-btn-dark:hover {
+  box-shadow:
+    0 8px 16px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    0 0 20px rgba(135,206,235,0.6);
+  transform: translateY(-2px);
 }
 
 /* ── 3D card ── */
@@ -141,7 +183,7 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
   100% { background-position: 0% 50%; }
 }
 
-/* ── Video card ── */
+/* ── Video card (translucent overlay – images shine through) ── */
 .video-card {
   aspect-ratio: 16/9;
   overflow: hidden;
@@ -152,10 +194,14 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 .video-card:hover {
   transform: rotateY(5deg) rotateX(-3deg) scale(1.02);
 }
-.video-card video {
+.video-card video,
+.video-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.video-card-overlay {
+  background: var(--overlay-card);   /* very light overlay so video is clear */
 }
 
 /* ── Review carousel ── */
@@ -168,22 +214,6 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
-}
-
-/* ── Nav button ── */
-.nav-btn {
-  position: relative;
-  padding: 0.6rem 1.6rem;
-  background: linear-gradient(to bottom, #ffffff, #e6d5c3);
-  color: #0a1628;
-  font-weight: 700;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.8);
-  transition: all 0.3s;
-}
-.nav-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
 }
 
 /* ── Sub text gradient ── */

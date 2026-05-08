@@ -1,10 +1,54 @@
 import type { Metadata } from "next";
 import "./globals.css";
+
 export const metadata: Metadata = {
-  title: { default: "Planet&Travel — Luxury Travel Curator | Madhya Pradesh", template: "%s | Planet&Travel" },
-  description: "Bespoke luxury journeys across India. Private guides, palace stays, real‑time train tracking since 2000.",
-  metadataBase: new URL("https://codewander-666.github.io/planet-travel"),
+  title: {
+    default: "Planet&Travel — Luxury Travel Curator | Gwalior",
+    template: "%s | Planet&Travel",
+  },
+  description:
+    "Bespoke luxury journeys across India since 2000. Private guides, palace stays, train tickets, car rentals.",
+  metadataBase: new URL("https://planet-travel.vercel.app"),
+  openGraph: {
+    siteName: "Planet&Travel",
+    locale: "en_IN",
+    type: "website",
+  },
+  robots: { index: true, follow: true },
 };
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="en"><body className="bg-navy-950 text-cream-100 antialiased">{children}</body></html>;
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              name: "Planet&Travel",
+              image: "https://planet-travel.vercel.app/assets/logo/logo.png",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Platform 1, Gwalior Railway Station, opposite NCC Office",
+                addressLocality: "Gwalior",
+                addressRegion: "Madhya Pradesh",
+                addressCountry: "IN",
+                postalCode: "474002",
+              },
+              telephone: "+916261031710",
+              priceRange: "₹₹",
+              openingHours: "Mo-Su 06:00-23:00",
+            }),
+          }}
+        />
+      </head>
+      <body className="antialiased">{children}</body>
+    </html>
+  );
 }

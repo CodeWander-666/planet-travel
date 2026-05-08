@@ -11,11 +11,12 @@
 body {
   font-family: 'Inter', sans-serif;
   color: #1a1a2e;
-  background: linear-gradient(135deg, #FFD700 0%, #FF6B35 20%, #FF006E 40%, #00F5FF 60%, #32CD32 80%, #FFD700 100%);
+  /* Pure luxury white gradient – subtle & looping */
+  background: linear-gradient(135deg, #ffffff 0%, #fafafa 25%, #f5f5f5 50%, #fafafa 75%, #ffffff 100%);
   background-size: 400% 400%;
-  animation: dopamineRotate 8s ease infinite;
+  animation: whiteLuxury 12s ease infinite;
 }
-@keyframes dopamineRotate {
+@keyframes whiteLuxury {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
@@ -23,8 +24,8 @@ body {
 
 h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 
-.glass { background: rgba(255,255,255,0.12); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.25); border-radius: 16px; }
-.glass-light { background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; }
+.glass { background: rgba(255,255,255,0.25); backdrop-filter: blur(20px); border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; }
+.glass-light { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(0,0,0,0.05); border-radius: 16px; }
 
 .text-gradient {
   background: linear-gradient(135deg, #B8860B 0%, #8B0000 50%, #B8860B 100%);
@@ -39,10 +40,10 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 .hero-background video, .hero-background img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:0; }
 .hero-overlay { position: absolute; inset:0; background: var(--overlay-dark); z-index:1; }
 .hero-content { position: relative; z-index:2; display:flex; align-items:center; justify-content:center; min-height:100vh; text-align:center; padding:6rem 1rem 2rem; }
-.hero-fallback-bg { background: linear-gradient(135deg, #FFD700 0%, #FF006E 50%, #00F5FF 100%); background-size:400% 400%; animation: heroGradient 8s ease infinite; }
+.hero-fallback-bg { background: linear-gradient(135deg, #ffffff 0%, #e8e8e8 100%); background-size:400% 400%; animation: heroGradient 12s ease infinite; }
 @keyframes heroGradient { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
-.header-bg { background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.08); }
+.header-bg { background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.06); }
 
 .nav-btn-dark {
   position: relative; padding: 0.6rem 1.6rem;
@@ -60,8 +61,8 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 .service-card { position: relative; border-radius: 20px; overflow: hidden; }
 .service-card::before {
   content: ''; position: absolute; top:-2px; left:-2px; right:-2px; bottom:-2px;
-  background: linear-gradient(45deg, #FFD700, #FF006E, #00F5FF, #FFD700);
-  background-size: 400% 400%; animation: borderGlow 3s linear infinite;
+  background: linear-gradient(45deg, #D4AF37, #F5E08E, #D4AF37, #F5E08E);
+  background-size: 400% 400%; animation: borderGlow 4s linear infinite;
   border-radius: 20px; z-index: -1; opacity: 0; transition: opacity 0.4s;
 }
 .service-card:hover::before { opacity: 1; }

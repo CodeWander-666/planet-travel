@@ -1,6 +1,5 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import HeroTrain from '@/components/HeroTrain';
 import ServiceCard3D from '@/components/ServiceCard3D';
 import SectionHeader from '@/components/SectionHeader';
 import ReviewCarousel from '@/components/ReviewCarousel';
@@ -30,7 +29,6 @@ export default function Home() {
             <source src="/assets/hero/homepage-hero.mp4" type="video/mp4" />
           </video>
           <div className="hero-overlay absolute inset-0 bg-navy-950/70 z-[1]" />
-          <HeroTrain />
           <div className="hero-content relative z-[2] flex items-center justify-center h-full text-center px-4 pt-20 md:pt-28">
             <div className="max-w-4xl">
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6">

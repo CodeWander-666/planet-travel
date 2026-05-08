@@ -1,67 +1,48 @@
-cat > src/components/ServiceCard3D.tsx <<'SC3D'
-'use client';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")" || exit 1
 
-const icons: Record<string, string> = {
-  ticket: 'M4 16l2-2-2-2 2-2-2-2 2-2-2-2 2 2 2-2 2 2-2 2 2-2 2 2-2 2 2 2-2',
-  tours: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
-  hotel: 'M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z',
-  flight: 'M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z',
-  visa: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z',
-  corporate: 'M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z',
+echo "🚀 Planet&Travel — Full Sync & Push"
+
+# 1. Fix next.config.ts for Vercel (no basePath)
+cat > next.config.ts <<'NXT'
+import type { NextConfig } from "next";
+const nextConfig: NextConfig = {
+  output: 'export',
+  images: { unoptimized: true },
+  trailingSlash: true,
 };
+export default nextConfig;
+NXT
 
-const videoMap: Record<string, string> = {
-  "confirm-ticket": "/assets/homepage/videos/train-tracking-strip.webm",
-  "luxury-tours": "/assets/homepage/videos/luxury-stays.webm",
-  "hotel-booking": "/assets/homepage/videos/luxury-stays.webm",
-  "flight-booking": "/assets/homepage/videos/chauffeur-drives.webm",
-  "visa-assistance": "/assets/homepage/videos/station-transfers.webm",
-  "corporate-travel": "/assets/homepage/videos/chauffeur-drives.webm",
-};
+# 2. Stage everything
+git add -A
 
-export default function ServiceCard3D({
-  id, title, desc, gradient, href, delay = 0
-}: {
-  id: string; title: string; desc: string; gradient: string; href: string; delay?: number;
-}) {
-  const iconPath = icons[id] || icons.ticket;
-  const videoSrc = videoMap[id] || videoMap["luxury-tours"];
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40, rotateX: 15 }}
-      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.7, delay }}
-      whileHover={{ scale: 1.03, rotateY: 5 }}
-      className="card-3d"
-    >
-      <Link href={href} className="block h-full">
-        <div className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${gradient} border border-gold-400/20 h-full group cursor-pointer`}>
-          <video
-            autoPlay muted loop playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-500"
-            src={videoSrc}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-navy-950/40 to-navy-950/20" />
-          <div className="relative z-10 p-8 h-full flex flex-col justify-between">
-            <div>
-              <svg viewBox="0 0 24 24" className="w-12 h-12 mb-4 stroke-gold-400 fill-none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d={iconPath} />
-              </svg>
-              <h3 className="text-2xl font-heading text-gold-400 mb-3">{title}</h3>
-              <p className="text-cream-100/70 text-sm leading-relaxed">{desc}</p>
-            </div>
-            <div className="mt-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
-              <svg className="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </div>
-          </div>
-        </div>
-      </Link>
-    </motion.div>
-  );
+# 3. Commit all pending work
+git commit -m "🚀 Production deploy: removed basePath, all luxury sections" || echo "⚠️ Nothing to commit"
+
+# 4. Stash any remaining dirty files (if any), then pull
+git stash --include-untracked 2>/dev/null || true
+git pull --rebase origin main || {
+  echo "⚠️ Rebase conflict — accepting local version for known files"
+  # For any conflict, keep our local version
+  git diff --name-only --diff-filter=U | while read f; do
+    git checkout --ours "$f" 2>/dev/null || true
+    git add "$f" 2>/dev/null || true
+  done
+  git rebase --continue 2>/dev/null || true
 }
-SC3D
 
-npm run build
+# 5. Restore stash on top
+git stash pop 2>/dev/null || true
+
+# 6. Final commit if anything remains
+git add -A
+git commit -m "✅ Merge & deploy" || echo "⚠️ Nothing extra to commit"
+
+# 7. Push
+git push origin main
+
+echo ""
+echo "✅ Success! Vercel will auto‑deploy in a few seconds."
+echo "🌐 Visit your Vercel dashboard to see the live URL."

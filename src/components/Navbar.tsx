@@ -14,51 +14,32 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 header-bg border-b border-white/20">
+    <nav className="fixed top-0 w-full z-50 header-bg">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
-        <Link href="/" className="flex items-center gap-2">
-          <img src="/assets/logo/logo.png" alt="Planet&Travel" className="h-10 w-auto" />
-          <span className="font-heading text-xl text-navy-950 font-bold">
-            Planet<span className="text-gold-400">&</span>Travel
-          </span>
+        <Link href="/" className="flex items-center">
+          <img src="/assets/logo/logo.png" alt="Planet &amp; Travel" className="h-12 w-auto" />
         </Link>
 
         <div className="hidden md:flex items-center gap-6">
           {links.map(l => (
-            <Link
-              key={l.name}
-              href={l.href}
-              className="text-navy-900/80 hover:text-gold-400 transition-colors text-sm font-semibold"
-            >
+            <Link key={l.name} href={l.href} className="text-navy-900/80 hover:text-gold-400 transition-colors text-sm font-semibold">
               {l.name}
             </Link>
           ))}
         </div>
 
-        <Link href="/concierge" className="hidden md:inline-block nav-btn-dark">
-          Book Now
-        </Link>
-
-        <button onClick={() => setOpen(!open)} className="md:hidden text-navy-900 text-2xl">
-          ☰
-        </button>
+        <Link href="/concierge" className="hidden md:inline-block nav-btn-dark">Book Now</Link>
+        <button onClick={() => setOpen(!open)} className="md:hidden text-navy-900 text-2xl">&equiv;</button>
       </div>
 
       {open && (
-        <div className="md:hidden bg-white/80 backdrop-blur-xl px-4 py-4 flex flex-col gap-2">
+        <div className="md:hidden bg-white/90 backdrop-blur-xl px-4 py-4 flex flex-col gap-2">
           {links.map(l => (
-            <Link
-              key={l.name}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="text-navy-900 hover:text-gold-400 text-sm py-1 font-medium"
-            >
+            <Link key={l.name} href={l.href} onClick={() => setOpen(false)} className="text-navy-900 hover:text-gold-400 text-sm py-1 font-medium">
               {l.name}
             </Link>
           ))}
-          <Link href="/concierge" className="nav-btn-dark text-center mt-2">
-            Book Now
-          </Link>
+          <Link href="/concierge" className="nav-btn-dark text-center mt-2">Book Now</Link>
         </div>
       )}
     </nav>

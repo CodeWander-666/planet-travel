@@ -1,27 +1,21 @@
-/* ═════════════════════════════════════════════════════════════════════
-   Planet&Travel – Luxury Production Stylesheet
-   ═════════════════════════════════════════════════════════════════════ */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --navy-950: #0a1628;
+  --overlay-dark: rgba(0,0,0,0.55);
   --gold-400: #D4AF37;
-  --cream-100: #FFF8F0;
-  --overlay-light: rgba(10,22,40,0.35);   /* was 0.75, now crystal clear */
-  --overlay-card: rgba(10,22,40,0.25);     /* barely there */
+  --navy-950: #0a1628;
 }
 
 * { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', sans-serif;
-  color: #0f172a;
-  /* ── Global luxury animated gradient (skyblue/purple/yellow) ── */
-  background: linear-gradient(135deg, #87CEEB 0%, #D8B4FE 40%, #FEF08A 70%, #87CEEB 100%);
+  color: #1a1a2e;
+  background: linear-gradient(135deg, #FFD700 0%, #FF6B35 20%, #FF006E 40%, #00F5FF 60%, #32CD32 80%, #FFD700 100%);
   background-size: 400% 400%;
-  animation: bodyGradient 20s ease infinite;
+  animation: dopamineRotate 8s ease infinite;
 }
-@keyframes bodyGradient {
+@keyframes dopamineRotate {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
@@ -29,226 +23,61 @@ body {
 
 h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 
-/* ── Glass (translucent) ── */
-.glass {
-  background: rgba(10,22,40,0.50);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(212,175,55,0.15);
-  border-radius: 16px;
-}
-.glass-light {
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(212,175,55,0.10);
-  border-radius: 16px;
-}
+.glass { background: rgba(255,255,255,0.12); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.25); border-radius: 16px; }
+.glass-light { background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; }
 
-/* ── Text gradient (white‑skyblue) ── */
 .text-gradient {
-  background: linear-gradient(135deg, #0f172a 0%, #1e1e2f 50%, #0f172a 100%);
+  background: linear-gradient(135deg, #B8860B 0%, #8B0000 50%, #B8860B 100%);
   background-size: 300% 300%;
-  animation: gradientShift 8s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  animation: gradientShift 6s ease infinite;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   font-weight: 900;
 }
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+@keyframes gradientShift { 0% {background-position:0% 50%} 50% {background-position:100% 50%} 100% {background-position:0% 50%} }
 
-/* ── Text backdrop ── */
-.text-backdrop {
-  display: inline-block;
-  background: rgba(10,22,40,0.55);
-  backdrop-filter: blur(8px);
-  padding: 0.5rem 1.5rem;
-  border-radius: 12px;
-  border: 1px solid rgba(212,175,55,0.2);
-}
+.hero-background { position: relative; overflow: hidden; }
+.hero-background video, .hero-background img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+.hero-overlay { position: absolute; inset:0; background: var(--overlay-dark); z-index:1; }
+.hero-content { position: relative; z-index:2; display:flex; align-items:center; justify-content:center; min-height:100vh; text-align:center; padding:6rem 1rem 2rem; }
+.hero-fallback-bg { background: linear-gradient(135deg, #FFD700 0%, #FF006E 50%, #00F5FF 100%); background-size:400% 400%; animation: heroGradient 8s ease infinite; }
+@keyframes heroGradient { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
-/* ── Hero (CRYSTAL CLEAR – overlay reduced to 35%) ── */
-.hero-background {
-  position: relative;
-  overflow: hidden;
-}
-.hero-background video,
-.hero-background img {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: var(--overlay-light);   /* 0.35 opacity – video clearly visible */
-  z-index: 1;
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  text-align: center;
-  padding: 6rem 1rem 2rem;
-}
+.header-bg { background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.08); }
 
-/* ── Hero gradient fallback ── */
-.hero-fallback-bg {
-  background: linear-gradient(135deg, #87CEEB 0%, #00FFFF 50%, #90EE90 100%);
-  background-size: 400% 400%;
-  animation: heroGradient 12s ease infinite;
-}
-@keyframes heroGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ── Header gradient ── */
-.header-bg {
-  background: linear-gradient(135deg, #ffffff 0%, #e0f0ff 20%, #b3d9ff 40%, #f5e6d3 60%, #ffffff 80%, #e0f0ff 100%);
-  background-size: 400% 400%;
-  animation: headerShift 16s ease infinite;
-  backdrop-filter: blur(16px);
-}
-@keyframes headerShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ── Dark pearl 3D header button ── */
 .nav-btn-dark {
-  position: relative;
-  padding: 0.6rem 1.6rem;
+  position: relative; padding: 0.6rem 1.6rem;
   background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  color: #f0e6d3;
-  font-weight: 700;
-  border-radius: 12px;
+  color: #f0e6d3; font-weight: 700; border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.15);
-  box-shadow:
-    0 4px 6px rgba(0,0,0,0.5),
-    inset 0 1px 0 rgba(255,255,255,0.3),
-    inset 0 -2px 0 rgba(0,0,0,0.3),
-    0 0 12px rgba(135,206,235,0.3);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3), 0 0 12px rgba(0,200,255,0.3);
   transition: all 0.3s ease;
 }
-.nav-btn-dark:hover {
-  box-shadow:
-    0 8px 16px rgba(0,0,0,0.6),
-    inset 0 1px 0 rgba(255,255,255,0.4),
-    0 0 20px rgba(135,206,235,0.6);
-  transform: translateY(-2px);
-}
+.nav-btn-dark:hover { box-shadow: 0 8px 16px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.4), 0 0 20px rgba(0,200,255,0.6); transform: translateY(-2px); }
 
-/* ── 3D card ── */
-.card-3d {
-  perspective: 1000px;
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
-}
-.card-3d:hover {
-  transform: rotateY(10deg) rotateX(-5deg) scale(1.02);
-}
+.card-3d { perspective: 1000px; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4,0,0.2,1); }
+.card-3d:hover { transform: rotateY(10deg) rotateX(-5deg) scale(1.02); }
 
-/* ── Service card with glow border ── */
-.service-card {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-}
+.service-card { position: relative; border-radius: 20px; overflow: hidden; }
 .service-card::before {
-  content: '';
-  position: absolute;
-  top: -2px; left: -2px; right: -2px; bottom: -2px;
-  background: linear-gradient(45deg, #D4AF37, #F5E08E, #D4AF37, #F5E08E);
-  background-size: 400% 400%;
-  animation: borderGlow 4s linear infinite;
-  border-radius: 20px;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.4s;
+  content: ''; position: absolute; top:-2px; left:-2px; right:-2px; bottom:-2px;
+  background: linear-gradient(45deg, #FFD700, #FF006E, #00F5FF, #FFD700);
+  background-size: 400% 400%; animation: borderGlow 3s linear infinite;
+  border-radius: 20px; z-index: -1; opacity: 0; transition: opacity 0.4s;
 }
 .service-card:hover::before { opacity: 1; }
-@keyframes borderGlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+@keyframes borderGlow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
-/* ── Video card (translucent overlay – images shine through) ── */
-.video-card {
-  aspect-ratio: 16/9;
-  overflow: hidden;
-  border-radius: 1rem;
-  perspective: 800px;
-  transition: transform 0.4s ease;
-}
-.video-card:hover {
-  transform: rotateY(5deg) rotateX(-3deg) scale(1.02);
-}
-.video-card video,
-.video-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.video-card-overlay {
-  background: var(--overlay-card);   /* very light overlay so video is clear */
-}
+.video-card { aspect-ratio: 16/9; overflow: hidden; border-radius: 1rem; perspective: 800px; transition: transform 0.4s ease; }
+.video-card:hover { transform: rotateY(5deg) rotateX(-3deg) scale(1.02); }
+.video-card video, .video-card img { width:100%; height:100%; object-fit:cover; }
 
-/* ── Review carousel ── */
-.review-carousel {
-  animation: marquee 40s linear infinite;
-}
-.review-carousel:hover {
-  animation-play-state: paused;
-}
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
+.review-carousel { animation: marquee 40s linear infinite; }
+.review-carousel:hover { animation-play-state: paused; }
+@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
-/* ── Sub text gradient ── */
 .text-gradient-sub {
   font-weight: 600;
-  background: linear-gradient(135deg, #0f172a 0%, #1e1e2f 50%, #0f172a 100%);
-  background-size: 300% 300%;
-  animation: gradientShift 8s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ── Dark gradient on all headings by default ── */
-h1, h2, h3, h4 {
-  background: linear-gradient(135deg, #0f172a 0%, #1e1e2f 50%, #0f172a 100%);
-  background-size: 300% 300%;
-  animation: gradientShift 8s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 900;
-}
-
-/* ── Paragraphs also use a subtle dark gradient ── */
-p, a, span, li, button {
-  background: linear-gradient(135deg, #0f172a 0%, #1e1e2f 50%, #0f172a 100%);
-  background-size: 300% 300%;
-  animation: gradientShift 8s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-/* ── Exclude SVGs and images from gradient text ── */
-svg, img, video, button.bg-gold-400, .nav-btn-dark {
-  background: none !important;
-  -webkit-text-fill-color: initial !important;
+  background: linear-gradient(135deg, #B8860B 0%, #8B0000 50%, #B8860B 100%);
+  background-size: 300% 300%; animation: gradientShift 6s ease infinite;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }

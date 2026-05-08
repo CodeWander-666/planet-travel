@@ -23,40 +23,31 @@ export default function Home() {
     <>
       <Navbar />
       <main>
-        {/* ═══════ SECTION 1 – Hero with video background ═══════ */}
+        {/* SECTION 1 – Hero */}
         <section className="relative min-h-screen hero-background">
-          <video
-            autoPlay muted loop playsInline
-            poster="/assets/homepage/destinations/gwalior.png"
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="/assets/homepage/destinations/gwalior.png" type="video/webm" />
-            <source src="/assets/homepage/destinations/gwalior.png" type="video/mp4" />
+          <video autoPlay muted loop playsInline poster="/assets/hero/homepage-hero.webm" className="absolute inset-0 w-full h-full object-cover">
+            <source src="/assets/hero/homepage-hero.webm" type="video/webm" />
+            <source src="/assets/hero/homepage-hero.mp4" type="video/mp4" />
           </video>
           <div className="hero-overlay absolute inset-0 bg-navy-950/70 z-[1]" />
           <HeroTrain />
           <div className="hero-content relative z-[2] flex items-center justify-center h-full text-center px-4 pt-20 md:pt-28">
             <div className="max-w-4xl">
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6">
-                <span className="text-backdrop">
-                  <span className="text-gradient font-bold">Beyond Journeys,</span><br/>
-                  <span className="text-gradient font-bold">Into Legacies</span>
-                </span>
+                <span className="text-backdrop"><span className="text-gradient">Beyond Journeys,</span><br/><span className="text-gradient">Into Legacies</span></span>
               </h1>
-              <p className="text-gradient-sub text-lg md:text-xl max-w-2xl mx-auto mb-8">
-                <span className="text-backdrop">
-                  Your personal travel architect for India. Curating luxury experiences since 2000.
-                </span>
+              <p className="text-cream-100/60 text-lg md:text-xl max-w-2xl mx-auto mb-8">
+                <span className="text-backdrop">Your personal travel architect for India. Curating luxury experiences since 2000.</span>
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/concierge" className="bg-gold-400 text-navy-950 font-bold px-8 py-4 rounded-xl hover:shadow-2xl hover:shadow-gold-400/30 transition-all text-lg">Begin Your Journey</Link>
-                <Link href="/train" className="border border-gold-400/30 text-gradient-sub font-bold px-8 py-4 rounded-xl hover:bg-gold-400/10 transition-all text-lg">Track a Train</Link>
+                <Link href="/concierge" className="bg-gold-400 text-navy-950 font-bold px-8 py-4 rounded-xl hover:shadow-2xl hover:shadow-gold-400/30 transition-all duration-500 text-lg">Begin Your Journey</Link>
+                <Link href="/train" className="border border-gold-400/30 text-gold-400 px-8 py-4 rounded-xl hover:bg-gold-400/10 transition-all duration-500 text-lg">Track a Train</Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ═══════ SECTION 2 – About Us with image ═══════ */}
+        {/* SECTION 2 – About Us */}
         <section className="py-24 bg-navy-900/50">
           <div className="max-w-7xl mx-auto px-4">
             <SectionHeader title="Our Legacy" subtitle="Since 2000 — A Journey of Trust & Excellence" />
@@ -75,11 +66,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="glass rounded-2xl p-8 border border-gold-400/10 text-center overflow-hidden">
-                <img 
-                  src="/assets/homepage/destinations/gwalior.png" 
-                  alt="Smiling family travelling" 
-                  className="w-full h-64 object-cover rounded-xl mb-4"
-                />
+                <img src="/assets/homepage/about-family.png" alt="Family traveling together" className="w-full h-64 object-cover rounded-xl mb-4" loading="lazy" decoding="async" />
                 <h3 className="text-xl text-gold-400 font-heading mb-2">Our Headquarters</h3>
                 <p className="text-cream-100/60 text-sm">Platform №1, Gwalior Railway Station</p>
                 <p className="text-cream-100/60 text-sm">Opposite NCC Office, Gwalior — 474002</p>
@@ -88,7 +75,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ═══════ SECTION 3 – Services Grid ═══════ */}
+        {/* SECTION 3 – Services Grid */}
         <section id="services" className="py-24 bg-navy-950">
           <div className="max-w-7xl mx-auto px-4">
             <SectionHeader title="Our Services" subtitle="Everything you need for a flawless journey — curated with precision" />
@@ -98,7 +85,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ═══════ SECTION 4 – Why Planet&Travel ═══════ */}
+        {/* SECTION 4 – Why Planet&Travel */}
         <section className="py-24 bg-navy-900/30">
           <div className="max-w-7xl mx-auto px-4">
             <SectionHeader title="Why Planet&Travel" subtitle="The difference is in the details" />
@@ -111,22 +98,23 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ═══════ SECTION 5 – Video Cards Row ═══════ */}
+        {/* SECTION 5 – Video Cards Row */}
         <section className="py-24 bg-navy-950">
           <div className="max-w-7xl mx-auto px-4">
             <SectionHeader title="Experience the Journey" subtitle="Watch how we make travel unforgettable" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <VideoCard3D webmSrc="/assets/homepage/videos/luxury-stays.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Chauffeur Drives" description="Luxury vehicles at your disposal" delay={0} />
-              <VideoCard3D webmSrc="/assets/homepage/videos/luxury-stays.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Station Transfers" description="Seamless railway & airport pickups" delay={0.1} />
-              <VideoCard3D webmSrc="/assets/homepage/videos/luxury-stays.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Luxury Stays" description="Palace hotels & beach resorts" delay={0.2} />
+              <VideoCard3D webmSrc="/assets/homepage/videos/chauffeur-drives.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Chauffeur Drives" description="Luxury vehicles at your disposal" delay={0} />
+              <VideoCard3D webmSrc="/assets/homepage/videos/station-transfers.webm" posterSrc="/assets/homepage/destinations/indore.png" title="Station Transfers" description="Seamless railway & airport pickups" delay={0.1} />
+              <VideoCard3D webmSrc="/assets/homepage/videos/luxury-stays.webm" posterSrc="/assets/homepage/destinations/bhopal.png" title="Luxury Stays" description="Palace hotels & beach resorts" delay={0.2} />
             </div>
           </div>
         </section>
 
-        {/* ═══════ SECTION 6 – Track Your Train Live ═══════ */}
-        <section className="py-24 bg-gradient-to-r from-navy-900 to-navy-950 text-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.1),transparent_70%)]" />
-          <div className="max-w-4xl mx-auto px-4 relative">
+        {/* SECTION 6 – Track Your Train Live (video strip) */}
+        <section className="relative py-32 bg-navy-950 overflow-hidden text-center">
+          <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-20" src="/assets/homepage/videos/train-tracking-strip.webm" />
+          <div className="absolute inset-0 bg-navy-950/60" />
+          <div className="relative z-10 max-w-4xl mx-auto px-4">
             <SectionHeader title="Track Your Train Live" subtitle="Real‑time Indian Railways tracking — accurate, free, and beautiful" />
             <p className="text-cream-100/60 mb-8 max-w-2xl mx-auto">
               Enter any train number and see its exact location, delay, upcoming stations, and platform numbers — refreshed every 2 minutes.
@@ -138,7 +126,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ═══════ SECTION 7 – Popular Destinations ═══════ */}
+        {/* SECTION 7 – Popular Destinations */}
         <section id="destinations" className="py-24 bg-navy-950">
           <div className="max-w-7xl mx-auto px-4">
             <SectionHeader title="Popular Destinations" subtitle="Explore the heart of India in luxury" />
@@ -146,7 +134,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ═══════ SECTION 8 – Stats Banner ═══════ */}
+        {/* SECTION 8 – Stats Banner */}
         <section className="py-16 bg-navy-900/50 border-y border-gold-400/5">
           <div className="max-w-5xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[{ n:'25+', l:'Years of Excellence' },{ n:'50K+', l:'Happy Travellers' },{ n:'100K+', l:'Tickets Confirmed' },{ n:'500+', l:'Luxury Tours' }].map((s,i) => (
@@ -155,7 +143,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ═══════ SECTION 9 – Reviews ═══════ */}
+        {/* SECTION 9 – Reviews */}
         <section id="reviews" className="py-24 bg-navy-950">
           <div className="max-w-7xl mx-auto px-4">
             <SectionHeader title="What Travellers Say" subtitle="50,000+ happy journeys — hear it from them" />
@@ -163,7 +151,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ═══════ SECTION 10 – Submit Review ═══════ */}
+        {/* SECTION 10 – Submit Review */}
         <section className="py-20 bg-navy-900/30">
           <div className="max-w-3xl mx-auto px-4">
             <SectionHeader title="Share Your Experience" subtitle="Your review helps us serve you better" />
@@ -171,12 +159,13 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ═══════ SECTION 11 – Need a Confirmed Ticket? ═══════ */}
-        <section className="py-28 bg-gradient-to-br from-navy-900 to-navy-950 relative overflow-hidden text-center">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(212,175,55,0.15),transparent_50%)]" />
+        {/* SECTION 11 – Need a Confirmed Ticket? (video strip) */}
+        <section className="relative py-28 bg-navy-950 overflow-hidden text-center">
+          <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-20" src="/assets/homepage/videos/confirmed-ticket-strip.webm" />
+          <div className="absolute inset-0 bg-navy-950/60" />
           <div className="absolute top-10 left-10 w-32 h-32 bg-gold-400/10 rounded-full blur-3xl" />
           <div className="absolute bottom-10 right-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl" />
-          <div className="max-w-4xl mx-auto px-4 relative">
+          <div className="relative z-10 max-w-4xl mx-auto px-4">
             <SectionHeader title="Need a Confirmed Ticket?" subtitle="Tatkal, Premium Tatkal, or Advance — our agents get it done" />
             <p className="text-cream-100/60 max-w-2xl mx-auto mb-10 text-lg">
               With a <strong className="text-gold-400">94% success rate</strong> in Tatkal, our IRCTC‑authorized agents sit at the counter the moment booking opens.
@@ -188,16 +177,21 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ═══════ SECTION 12 – Visit Us ═══════ */}
-        <section className="py-24 bg-navy-950 text-center">
-          <div className="max-w-4xl mx-auto px-4">
+        {/* SECTION 12 – Visit Us */}
+        <section className="py-24 bg-navy-950">
+          <div className="max-w-7xl mx-auto px-4">
             <SectionHeader title="Visit Us" subtitle="We'd love to welcome you" />
-            <div className="glass rounded-2xl p-8 border border-gold-400/10">
-              <p className="text-xl text-gold-400 font-heading mb-2">Platform №1, Gwalior Railway Station</p>
-              <p className="text-cream-100/50 mb-4">Opposite NCC Office, Gwalior, Madhya Pradesh — 474002</p>
-              <a href="https://wa.me/916261031710?text=Hello%20Planet%26Travel%2C%20I%20need%20assistance" className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500 transition-colors">
-                Chat on WhatsApp
-              </a>
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="glass rounded-2xl p-8 border border-gold-400/10">
+                <p className="text-xl text-gold-400 font-heading mb-2">Platform №1, Gwalior Railway Station</p>
+                <p className="text-cream-100/50 mb-4">Opposite NCC Office, Gwalior, Madhya Pradesh — 474002</p>
+                <a href="https://wa.me/916261031710?text=Hello%20Planet%26Travel%2C%20I%20need%20assistance" className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500 transition-colors">
+                  Chat on WhatsApp
+                </a>
+              </div>
+              <div className="glass rounded-2xl overflow-hidden border border-gold-400/10">
+                <img src="/assets/homepage/visit-us.png" alt="Planet&Travel Office" className="w-full h-80 object-cover" loading="lazy" decoding="async" />
+              </div>
             </div>
           </div>
         </section>
@@ -206,21 +200,3 @@ export default function Home() {
     </>
   );
 }
-{/* SECTION 11 – Visit Us */}
-<section className="py-24 bg-navy-950">
-  <div className="max-w-7xl mx-auto px-4">
-    <SectionHeader title="Visit Us" subtitle="We'd love to welcome you" />
-    <div className="grid md:grid-cols-2 gap-8 items-center">
-      <div className="glass rounded-2xl p-8 border border-gold-400/10">
-        <p className="text-xl text-gold-400 font-heading mb-2">Platform №1, Gwalior Railway Station</p>
-        <p className="text-cream-100/50 mb-4">Opposite NCC Office, Gwalior, Madhya Pradesh — 474002</p>
-        <a href="https://wa.me/916261031710?text=Hello%20Planet%26Travel%2C%20I%20need%20assistance" className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500 transition-colors">
-          Chat on WhatsApp
-        </a>
-      </div>
-      <div className="glass rounded-2xl overflow-hidden border border-gold-400/10">
-        <img src="/assets/homepage/visit-us.png" alt="Planet&Travel Office" className="w-full h-80 object-cover" />
-      </div>
-    </div>
-  </div>
-</section>

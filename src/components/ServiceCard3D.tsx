@@ -38,11 +38,7 @@ export default function ServiceCard3D({
     >
       <Link href={href} className="block h-full">
         <div className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${gradient} border border-gold-400/20 h-full group cursor-pointer`}>
-          <video
-            autoPlay muted loop playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-500"
-            src={videoSrc}
-          />
+          <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-500" src={videoSrc} />
           <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-navy-950/40 to-navy-950/20" />
           <div className="relative z-10 p-8 h-full flex flex-col justify-between">
             <div>

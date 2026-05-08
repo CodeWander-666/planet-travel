@@ -14,23 +14,6 @@ export default function Page() {
     <>
       <Navbar />
       <main className="pt-24">
-        {/* Video hero section */}
-        <section className="relative min-h-[50vh] flex items-center video-hero">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="/assets/homepage/destinations/gwalior.png"
-          >
-            <source src="/assets/homepage/destinations/gwalior.png" type="video/mp4" />
-          </video>
-          <div className="hero-overlay" />
-          <div className="hero-content relative z-10 text-center px-4 w-full">
-            <h1 className="text-4xl md:text-6xl font-heading text-gradient mb-4">Flight Booking</h1>
-            <p className="text-gradient-sub text-lg">Premium Flight Booking tailored to your desires, delivered with the signature Planet&Travel touch.</p>
-          </div>
-        </section>
         <ServicePageSections
           title="Flight Booking"
           description="Discover luxury Flight Booking — curated by Planet&Travel since 2000."

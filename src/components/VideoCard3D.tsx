@@ -18,14 +18,7 @@ export default function VideoCard3D({ webmSrc, posterSrc, title, description, de
       transition={{ duration: 0.5, delay }}
       className="glass rounded-2xl overflow-hidden border border-gold-400/10 video-card group relative"
     >
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster={posterSrc}
-        className="w-full h-full object-cover"
-      >
+      <video autoPlay muted loop playsInline poster={posterSrc} className="w-full h-full object-cover">
         <source src={webmSrc} type="video/webm" />
       </video>
       <div className="absolute inset-0 bg-navy-950/60 group-hover:bg-navy-950/30 transition-colors flex items-end p-4">

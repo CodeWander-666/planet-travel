@@ -21,6 +21,7 @@ export default function DestinationCards() {
               alt={c.name}
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               loading="lazy"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-navy-950/40 group-hover:bg-navy-950/20 transition-colors" />
             <h3 className="absolute bottom-3 left-3 text-2xl font-heading text-white drop-shadow-lg">

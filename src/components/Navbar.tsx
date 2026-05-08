@@ -9,6 +9,7 @@ export default function Navbar() {
     { name: 'Train Tracker', href: '/train' },
     { name: 'Services', href: '/services' },
     { name: 'Reviews', href: '/reviews' },
+    { name: 'Car Rental', href: '/services/car-booking' },
     { name: 'Contact', href: '/concierge' },
   ];
 

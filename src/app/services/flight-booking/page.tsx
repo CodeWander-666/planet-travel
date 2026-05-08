@@ -21,14 +21,14 @@ export default function Page() {
             muted
             loop
             playsInline
-            poster="https://images.pexels.com/photos/3601422/pexels-photo-3601422.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            poster="/assets/img/img-dd663bb7.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           >
-            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+            <source src="/assets/img/img-b252f6d3.mp4" type="video/mp4" />
           </video>
           <div className="hero-overlay" />
           <div className="hero-content relative z-10 text-center px-4 w-full">
             <h1 className="text-4xl md:text-6xl font-heading text-gradient mb-4">Flight Booking</h1>
-            <p className="text-cream-100/60 text-lg">Premium Flight Booking tailored to your desires, delivered with the signature Planet&Travel touch.</p>
+            <p className="text-gradient-sub text-lg">Premium Flight Booking tailored to your desires, delivered with the signature Planet&Travel touch.</p>
           </div>
         </section>
         <ServicePageSections

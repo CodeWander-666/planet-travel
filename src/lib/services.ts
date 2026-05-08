@@ -8,16 +8,27 @@ export const services = [
 ];
 
 export const cities = [
-  { slug:"gwalior", name:"Gwalior", fort:"Gwalior Fort", hotel:"Taj Usha Kiran Palace", desc:"Private fort tours, champagne at dawn.", img:"https://images.pexels.com/photos/15493232/pexels-photo-15493232/free-photo-of-gwalior-fort.jpeg?auto=compress&cs=tinysrgb&w=600" },
-  { slug:"indore", name:"Indore", fort:"Rajwada", hotel:"Radisson Blu Indore", desc:"Culinary capital, heritage & luxury.", img:"https://images.pexels.com/photos/2372975/pexels-photo-2372975.jpeg?auto=compress&cs=tinysrgb&w=600" },
-  { slug:"bhopal", name:"Bhopal", fort:"Gohar Mahal", hotel:"Jehan Numa Retreat", desc:"Lakes, Sufism & royal stays.", img:"https://images.pexels.com/photos/29038624/pexels-photo-29038624/free-photo-of-taj-ul-masajid-bhopal.jpeg?auto=compress&cs=tinysrgb&w=600" },
-  { slug:"jabalpur", name:"Jabalpur", fort:"Madan Mahal", hotel:"Narmada Jacksons", desc:"Marble rocks & luxury cruises.", img:"https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=600" },
-  { slug:"ujjain", name:"Ujjain", fort:"Mahakaleshwar", hotel:"Anjushree Inn", desc:"Spiritual luxury, VIP darshan.", img:"https://images.pexels.com/photos/3361486/pexels-photo-3361486.jpeg?auto=compress&cs=tinysrgb&w=600" },
-  { slug:"khajuraho", name:"Khajuraho", fort:"Temples", hotel:"The Lalit Temple View", desc:"Temple art, cultural evenings.", img:"https://images.pexels.com/photos/18540213/pexels-photo-18540213/free-photo-of-khajuraho-temples.jpeg?auto=compress&cs=tinysrgb&w=600" },
-  { slug:"orchha", name:"Orchha", fort:"Orchha Fort", hotel:"Amar Mahal", desc:"Bundela grandeur on Betwa.", img:"https://images.pexels.com/photos/3209434/pexels-photo-3209434.jpeg?auto=compress&cs=tinysrgb&w=600" },
-  { slug:"kanha", name:"Kanha", fort:"National Park", hotel:"Banjaar Tola", desc:"Tiger safari & jungle luxury.", img:"https://images.pexels.com/photos/247431/pexels-photo-247431.jpeg?auto=compress&cs=tinysrgb&w=600" },
-  { slug:"pachmarhi", name:"Pachmarhi", fort:"Hill Station", hotel:"WelcomHeritage Golf View", desc:"Waterfalls & colonial charm.", img:"https://images.pexels.com/photos/1366957/pexels-photo-1366957.jpeg?auto=compress&cs=tinysrgb&w=600" },
-  { slug:"sanchi", name:"Sanchi", fort:"Stupa", hotel:"Gateway Retreat", desc:"Buddhist serenity.", img:"https://images.pexels.com/photos/3126897/pexels-photo-3126897.jpeg?auto=compress&cs=tinysrgb&w=600" },
-  { slug:"maheshwar", name:"Maheshwar", fort:"Ahilya Fort", hotel:"Ahilya Fort Hotel", desc:"Riverfront luxury.", img:"https://images.pexels.com/photos/315998/pexels-photo-315998.jpeg?auto=compress&cs=tinysrgb&w=600" },
-  { slug:"bandhavgarh", name:"Bandhavgarh", fort:"Bandhavgarh Fort", hotel:"Mahua Kothi", desc:"Tigers & ancient ruins.", img:"https://images.pexels.com/photos/792032/pexels-photo-792032.jpeg?auto=compress&cs=tinysrgb&w=600" },
+  { slug:"gwalior", name:"Gwalior", fort:"Gwalior Fort", hotel:"Taj Usha Kiran Palace", desc:"Private fort tours, champagne at dawn.", img:"/assets/homepage/destinations/gwalior.png" },
+  { slug:"indore", name:"Indore", fort:"Rajwada", hotel:"Radisson Blu Indore", desc:"Culinary capital, heritage & luxury.", img:"/assets/homepage/destinations/gwalior.png" },
+  { slug:"bhopal", name:"Bhopal", fort:"Gohar Mahal", hotel:"Jehan Numa Retreat", desc:"Lakes, Sufism & royal stays.", img:"/assets/homepage/destinations/gwalior.png" },
+  { slug:"jabalpur", name:"Jabalpur", fort:"Madan Mahal", hotel:"Narmada Jacksons", desc:"Marble rocks & luxury cruises.", img:"/assets/homepage/destinations/gwalior.png" },
+  { slug:"ujjain", name:"Ujjain", fort:"Mahakaleshwar", hotel:"Anjushree Inn", desc:"Spiritual luxury, VIP darshan.", img:"/assets/homepage/destinations/gwalior.png" },
+  { slug:"khajuraho", name:"Khajuraho", fort:"Temples", hotel:"The Lalit Temple View", desc:"Temple art, cultural evenings.", img:"/assets/homepage/destinations/gwalior.png" },
+  { slug:"orchha", name:"Orchha", fort:"Orchha Fort", hotel:"Amar Mahal", desc:"Bundela grandeur on Betwa.", img:"/assets/homepage/destinations/gwalior.png" },
+  { slug:"kanha", name:"Kanha", fort:"National Park", hotel:"Banjaar Tola", desc:"Tiger safari & jungle luxury.", img:"/assets/homepage/destinations/gwalior.png" },
+  { slug:"pachmarhi", name:"Pachmarhi", fort:"Hill Station", hotel:"WelcomHeritage Golf View", desc:"Waterfalls & colonial charm.", img:"/assets/homepage/destinations/gwalior.png" },
+  { slug:"sanchi", name:"Sanchi", fort:"Stupa", hotel:"Gateway Retreat", desc:"Buddhist serenity.", img:"/assets/homepage/destinations/gwalior.png" },
+  { slug:"maheshwar", name:"Maheshwar", fort:"Ahilya Fort", hotel:"Ahilya Fort Hotel", desc:"Riverfront luxury.", img:"/assets/homepage/destinations/gwalior.png" },
+  { slug:"bandhavgarh", name:"Bandhavgarh", fort:"Bandhavgarh Fort", hotel:"Mahua Kothi", desc:"Tigers & ancient ruins.", img:"/assets/homepage/destinations/gwalior.png" },
+];
+// Car Booking added to services array
+export const carTypes = [
+  { name:"Sedan", desc:"Comfortable city rides", img:"/assets/homepage/destinations/gwalior.png" },
+  { name:"SUV", desc:"Spacious & powerful", img:"/assets/homepage/destinations/gwalior.png" },
+  { name:"Luxury Sedan", desc:"Premium business class", img:"/assets/homepage/destinations/gwalior.png" },
+  { name:"MUV", desc:"Ideal for families", img:"/assets/homepage/destinations/gwalior.png" },
+  { name:"Innova Crysta", desc:"Best for outstation", img:"/assets/homepage/destinations/gwalior.png" },
+  { name:"Tempo Traveller", desc:"Group travel", img:"/assets/homepage/destinations/gwalior.png" },
+  { name:"Mini Bus", desc:"Corporate trips", img:"/assets/homepage/destinations/gwalior.png" },
+  { name:"Luxury Coach", desc:"45‑seater AC", img:"/assets/homepage/destinations/gwalior.png" },
 ];

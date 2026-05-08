@@ -1,213 +1,67 @@
-cat > src/app/page.tsx <<'HOME'
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import HeroTrain from '@/components/HeroTrain';
-import ServiceCard3D from '@/components/ServiceCard3D';
-import SectionHeader from '@/components/SectionHeader';
-import ReviewCarousel from '@/components/ReviewCarousel';
-import ReviewForm from '@/components/ReviewForm';
-import WhyUsCard from '@/components/WhyUsCard';
-import DestinationCards from '@/components/DestinationCards';
-import VideoCard3D from '@/components/VideoCard3D';
-import { services } from '@/lib/services';
-import { generatePageMetadata } from '@/lib/seo';
+cat > src/components/ServiceCard3D.tsx <<'SC3D'
+'use client';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-export const metadata = generatePageMetadata(
-  "Planet&Travel — Luxury Travel Curator | Madhya Pradesh",
-  "Bespoke luxury journeys across India. Private guides, palace stays, real‑time train tracking since 2000. Located at Platform 1, Gwalior Railway Station.",
-  "/"
-);
+const icons: Record<string, string> = {
+  ticket: 'M4 16l2-2-2-2 2-2-2-2 2-2-2-2 2 2 2-2 2 2-2 2 2-2 2 2-2 2 2 2-2',
+  tours: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
+  hotel: 'M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z',
+  flight: 'M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z',
+  visa: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z',
+  corporate: 'M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z',
+};
 
-export default function Home() {
+const videoMap: Record<string, string> = {
+  "confirm-ticket": "/assets/homepage/videos/train-tracking-strip.webm",
+  "luxury-tours": "/assets/homepage/videos/luxury-stays.webm",
+  "hotel-booking": "/assets/homepage/videos/luxury-stays.webm",
+  "flight-booking": "/assets/homepage/videos/chauffeur-drives.webm",
+  "visa-assistance": "/assets/homepage/videos/station-transfers.webm",
+  "corporate-travel": "/assets/homepage/videos/chauffeur-drives.webm",
+};
+
+export default function ServiceCard3D({
+  id, title, desc, gradient, href, delay = 0
+}: {
+  id: string; title: string; desc: string; gradient: string; href: string; delay?: number;
+}) {
+  const iconPath = icons[id] || icons.ticket;
+  const videoSrc = videoMap[id] || videoMap["luxury-tours"];
   return (
-    <>
-      <Navbar />
-      <main>
-        {/* ═══════ SECTION 1 – Hero with video background ═══════ */}
-        <section className="relative min-h-screen hero-background">
+    <motion.div
+      initial={{ opacity: 0, y: 40, rotateX: 15 }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.7, delay }}
+      whileHover={{ scale: 1.03, rotateY: 5 }}
+      className="card-3d"
+    >
+      <Link href={href} className="block h-full">
+        <div className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${gradient} border border-gold-400/20 h-full group cursor-pointer`}>
           <video
             autoPlay muted loop playsInline
-            poster="https://images.pexels.com/photos/3601422/pexels-photo-3601422.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="https://cdn.coverr.co/videos/coverr-aerial-view-of-a-mountain-range-5563/1080p.webm" type="video/webm" />
-            <source src="https://videos.pexels.com/video-files/854172/854172-hd_1920_1080_25fps.mp4" type="video/mp4" />
-          </video>
-          <div className="hero-overlay absolute inset-0 bg-navy-950/70 z-[1]" />
-          <HeroTrain />
-          <div className="hero-content relative z-[2] flex items-center justify-center h-full text-center px-4 pt-20 md:pt-28">
-            <div className="max-w-4xl">
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6">
-                <span className="text-backdrop">
-                  <span className="text-gradient">Beyond Journeys,</span><br/>
-                  <span className="text-gradient">Into Legacies</span>
-                </span>
-              </h1>
-              <p className="text-cream-100/60 text-lg md:text-xl max-w-2xl mx-auto mb-8">
-                <span className="text-backdrop">
-                  Your personal travel architect for India. Curating luxury experiences since 2000.
-                </span>
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/concierge" className="bg-gold-400 text-navy-950 font-bold px-8 py-4 rounded-xl hover:shadow-2xl hover:shadow-gold-400/30 transition-all text-lg">Begin Your Journey</Link>
-                <Link href="/train" className="border border-gold-400/30 text-gold-400 px-8 py-4 rounded-xl hover:bg-gold-400/10 transition-all text-lg">Track a Train</Link>
-              </div>
+            className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-500"
+            src={videoSrc}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-navy-950/40 to-navy-950/20" />
+          <div className="relative z-10 p-8 h-full flex flex-col justify-between">
+            <div>
+              <svg viewBox="0 0 24 24" className="w-12 h-12 mb-4 stroke-gold-400 fill-none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d={iconPath} />
+              </svg>
+              <h3 className="text-2xl font-heading text-gold-400 mb-3">{title}</h3>
+              <p className="text-cream-100/70 text-sm leading-relaxed">{desc}</p>
+            </div>
+            <div className="mt-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
+              <svg className="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </div>
           </div>
-        </section>
-
-        {/* ═══════ SECTION 2 – About Us with image ═══════ */}
-        <section className="py-24 bg-navy-900/50">
-          <div className="max-w-7xl mx-auto px-4">
-            <SectionHeader title="Our Legacy" subtitle="Since 2000 — A Journey of Trust & Excellence" />
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <p className="text-cream-100/70 leading-relaxed mb-6">
-                  Founded in the year <strong className="text-gold-400">2000</strong>, Planet&Travel began its journey from a small office at <strong className="text-gold-400">Platform №1, Gwalior Railway Station, opposite the NCC Office</strong>. What started as a humble railway ticketing agency has grown into one of Madhya Pradesh's most trusted luxury travel curators.
-                </p>
-                <p className="text-cream-100/70 leading-relaxed mb-6">
-                  Over 25 years, we have served <strong className="text-gold-400">50,000+ travellers</strong>, arranged <strong className="text-gold-400">10,000+ luxury tours</strong>, and secured <strong className="text-gold-400">100,000+ confirmed railway tickets</strong> — including the most challenging Tatkal bookings.
-                </p>
-                <div className="flex items-center gap-8 mt-8">
-                  <div className="text-center"><span className="text-4xl font-heading text-gold-400">25+</span><p className="text-xs text-cream-100/50">Years Experience</p></div>
-                  <div className="text-center"><span className="text-4xl font-heading text-gold-400">50K+</span><p className="text-xs text-cream-100/50">Happy Travellers</p></div>
-                  <div className="text-center"><span className="text-4xl font-heading text-gold-400">100K+</span><p className="text-xs text-cream-100/50">Tickets Confirmed</p></div>
-                </div>
-              </div>
-              <div className="glass rounded-2xl p-8 border border-gold-400/10 text-center overflow-hidden">
-                <img 
-                  src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=600" 
-                  alt="Smiling family travelling" 
-                  className="w-full h-64 object-cover rounded-xl mb-4"
-                />
-                <h3 className="text-xl text-gold-400 font-heading mb-2">Our Headquarters</h3>
-                <p className="text-cream-100/60 text-sm">Platform №1, Gwalior Railway Station</p>
-                <p className="text-cream-100/60 text-sm">Opposite NCC Office, Gwalior — 474002</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════ SECTION 3 – Services Grid ═══════ */}
-        <section id="services" className="py-24 bg-navy-950">
-          <div className="max-w-7xl mx-auto px-4">
-            <SectionHeader title="Our Services" subtitle="Everything you need for a flawless journey — curated with precision" />
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map((s, i) => <ServiceCard3D key={s.id} {...s} delay={i * 0.1} />)}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════ SECTION 4 – Why Planet&Travel ═══════ */}
-        <section className="py-24 bg-navy-900/30">
-          <div className="max-w-7xl mx-auto px-4">
-            <SectionHeader title="Why Planet&Travel" subtitle="The difference is in the details" />
-            <div className="grid md:grid-cols-4 gap-6">
-              <WhyUsCard id="concierge" title="Personal Concierge" description="Dedicated travel architect assigned to every booking." delay={0} />
-              <WhyUsCard id="tracking" title="Real‑Time Tracking" description="Live train status, platform numbers, and delay alerts." delay={0.1} />
-              <WhyUsCard id="reviews" title="Verified Reviews" description="Genuine feedback from 50,000+ travellers across India." delay={0.2} />
-              <WhyUsCard id="support" title="24×7 Support" description="Round‑the‑clock assistance via WhatsApp, email, and phone." delay={0.3} />
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════ SECTION 5 – Video Cards Row ═══════ */}
-        <section className="py-24 bg-navy-950">
-          <div className="max-w-7xl mx-auto px-4">
-            <SectionHeader title="Experience the Journey" subtitle="Watch how we make travel unforgettable" />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <VideoCard3D webmSrc="https://cdn.coverr.co/videos/coverr-a-man-driving-a-car-6295/1080p.webm" posterSrc="https://images.pexels.com/photos/2104742/pexels-photo-2104742.jpeg?auto=compress&cs=tinysrgb&w=600" title="Chauffeur Drives" description="Luxury vehicles at your disposal" delay={0} />
-              <VideoCard3D webmSrc="https://cdn.coverr.co/videos/coverr-a-woman-walking-in-a-train-station-4824/1080p.webm" posterSrc="https://images.pexels.com/photos/725255/pexels-photo-725255.jpeg?auto=compress&cs=tinysrgb&w=600" title="Station Transfers" description="Seamless railway & airport pickups" delay={0.1} />
-              <VideoCard3D webmSrc="https://cdn.coverr.co/videos/coverr-aerial-shot-of-a-beach-resort-2033/1080p.webm" posterSrc="https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=600" title="Luxury Stays" description="Palace hotels & beach resorts" delay={0.2} />
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════ SECTION 6 – Track Your Train Live ═══════ */}
-        <section className="py-24 bg-gradient-to-r from-navy-900 to-navy-950 text-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.1),transparent_70%)]" />
-          <div className="max-w-4xl mx-auto px-4 relative">
-            <SectionHeader title="Track Your Train Live" subtitle="Real‑time Indian Railways tracking — accurate, free, and beautiful" />
-            <p className="text-cream-100/60 mb-8 max-w-2xl mx-auto">
-              Enter any train number and see its exact location, delay, upcoming stations, and platform numbers — refreshed every 2 minutes.
-            </p>
-            <Link href="/train" className="inline-flex items-center gap-2 bg-gold-400 text-navy-950 font-bold px-10 py-4 rounded-xl text-lg hover:shadow-2xl transition-all">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              Open Golden Rail Conductor
-            </Link>
-          </div>
-        </section>
-
-        {/* ═══════ SECTION 7 – Popular Destinations ═══════ */}
-        <section id="destinations" className="py-24 bg-navy-950">
-          <div className="max-w-7xl mx-auto px-4">
-            <SectionHeader title="Popular Destinations" subtitle="Explore the heart of India in luxury" />
-            <DestinationCards />
-          </div>
-        </section>
-
-        {/* ═══════ SECTION 8 – Stats Banner ═══════ */}
-        <section className="py-16 bg-navy-900/50 border-y border-gold-400/5">
-          <div className="max-w-5xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[{ n:'25+', l:'Years of Excellence' },{ n:'50K+', l:'Happy Travellers' },{ n:'100K+', l:'Tickets Confirmed' },{ n:'500+', l:'Luxury Tours' }].map((s,i) => (
-              <div key={i}><span className="text-4xl md:text-5xl font-heading text-gradient block">{s.n}</span><span className="text-cream-100/40 text-sm mt-2 block">{s.l}</span></div>
-            ))}
-          </div>
-        </section>
-
-        {/* ═══════ SECTION 9 – Reviews ═══════ */}
-        <section id="reviews" className="py-24 bg-navy-950">
-          <div className="max-w-7xl mx-auto px-4">
-            <SectionHeader title="What Travellers Say" subtitle="50,000+ happy journeys — hear it from them" />
-            <ReviewCarousel />
-          </div>
-        </section>
-
-        {/* ═══════ SECTION 10 – Submit Review ═══════ */}
-        <section className="py-20 bg-navy-900/30">
-          <div className="max-w-3xl mx-auto px-4">
-            <SectionHeader title="Share Your Experience" subtitle="Your review helps us serve you better" />
-            <ReviewForm />
-          </div>
-        </section>
-
-        {/* ═══════ SECTION 11 – Need a Confirmed Ticket? ═══════ */}
-        <section className="py-28 bg-gradient-to-br from-navy-900 to-navy-950 relative overflow-hidden text-center">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(212,175,55,0.15),transparent_50%)]" />
-          <div className="absolute top-10 left-10 w-32 h-32 bg-gold-400/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl" />
-          <div className="max-w-4xl mx-auto px-4 relative">
-            <SectionHeader title="Need a Confirmed Ticket?" subtitle="Tatkal, Premium Tatkal, or Advance — our agents get it done" />
-            <p className="text-cream-100/60 max-w-2xl mx-auto mb-10 text-lg">
-              With a <strong className="text-gold-400">94% success rate</strong> in Tatkal, our IRCTC‑authorized agents sit at the counter the moment booking opens.
-              Over <strong className="text-gold-400">100,000 tickets</strong> confirmed since 2000.
-            </p>
-            <Link href="/services/confirm-ticket" className="inline-block bg-gold-400 text-navy-950 font-bold px-12 py-5 rounded-2xl text-xl hover:shadow-2xl hover:shadow-gold-400/40 transition-all">
-              Get Confirmed Ticket →
-            </Link>
-          </div>
-        </section>
-
-        {/* ═══════ SECTION 12 – Visit Us ═══════ */}
-        <section className="py-24 bg-navy-950 text-center">
-          <div className="max-w-4xl mx-auto px-4">
-            <SectionHeader title="Visit Us" subtitle="We'd love to welcome you" />
-            <div className="glass rounded-2xl p-8 border border-gold-400/10">
-              <p className="text-xl text-gold-400 font-heading mb-2">Platform №1, Gwalior Railway Station</p>
-              <p className="text-cream-100/50 mb-4">Opposite NCC Office, Gwalior, Madhya Pradesh — 474002</p>
-              <a href="https://wa.me/916261031710?text=Hello%20Planet%26Travel%2C%20I%20need%20assistance" className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500 transition-colors">
-                Chat on WhatsApp
-              </a>
-            </div>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </>
+        </div>
+      </Link>
+    </motion.div>
   );
 }
-HOME
+SC3D
 
-# Now rebuild
 npm run build

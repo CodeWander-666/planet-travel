@@ -54,15 +54,15 @@ export default function ServicesPage() {
       <main>
         {/* SECTION 1 – Fixed Hero */}
         <section className="relative min-h-[70vh] hero-background">
-          <video autoPlay muted loop playsInline poster="https://images.pexels.com/photos/2104742/pexels-photo-2104742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
-            <source src="https://cdn.coverr.co/videos/coverr-aerial-view-of-a-mountain-range-5563/1080p.webm" type="video/webm" />
-            <source src="https://videos.pexels.com/video-files/854172/854172-hd_1920_1080_25fps.mp4" type="video/mp4" />
+          <video autoPlay muted loop playsInline poster="/assets/img/img-b31836e5.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
+            <source src="/assets/img/img-468abe49.webm" type="video/webm" />
+            <source src="/assets/img/img-ff6f649c.mp4" type="video/mp4" />
           </video>
           <div className="hero-overlay" />
           <div className="hero-content flex items-center justify-center h-full">
             <div className="text-center px-4 max-w-4xl">
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6">
-                <span className="text-gradient">Our Luxury Services</span>
+                <span className="text-gradient font-bold">Our Luxury Services</span>
               </h1>
               <p className="text-cream-100/70 text-lg md:text-xl max-w-2xl mx-auto mb-8">
                 Every journey is a masterpiece — curated with precision since 2000.
@@ -71,7 +71,7 @@ export default function ServicesPage() {
                 <a href={whatsappUrl} target="_blank" className="bg-gold-400 text-navy-950 font-bold px-8 py-4 rounded-xl hover:shadow-2xl hover:shadow-gold-400/30 transition-all text-lg">
                   Enquire Now
                 </a>
-                <Link href="/concierge" className="border border-gold-400/30 text-gold-400 px-8 py-4 rounded-xl hover:bg-gold-400/10 transition-all text-lg">
+                <Link href="/concierge" className="border border-gold-400/30 text-gradient-sub font-bold px-8 py-4 rounded-xl hover:bg-gold-400/10 transition-all text-lg">
                   Contact Concierge
                 </Link>
               </div>
@@ -100,7 +100,7 @@ export default function ServicesPage() {
                 </p>
                 <Link href="/services/confirm-ticket" className="inline-block mt-6 bg-gold-400 text-navy-950 font-bold px-6 py-3 rounded-lg hover:shadow-xl transition-all">Book Tickets →</Link>
               </div>
-              <FeatureImage src="https://images.pexels.com/photos/725255/pexels-photo-725255.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Indian Railway train" />
+              <FeatureImage src="/assets/img/img-8ddc56fa.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Indian Railway train" />
             </div>
           </div>
         </section>
@@ -109,7 +109,7 @@ export default function ServicesPage() {
         <section className="py-24 bg-navy-950">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <FeatureImage src="https://images.pexels.com/photos/3889812/pexels-photo-3889812.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Luxury palace hotel" />
+              <FeatureImage src="/assets/img/img-304ab048.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Luxury palace hotel" />
               <div>
                 <h2 className="text-3xl md:text-4xl font-heading text-gold-400 mb-4">🏰 Bespoke Luxury Tours</h2>
                 <p className="text-cream-100/60 leading-relaxed mb-4">Private guides, palace stays, helicopter transfers — every tour is a one‑of‑a‑kind masterpiece.</p>
@@ -128,7 +128,7 @@ export default function ServicesPage() {
                 <p className="text-cream-100/60 leading-relaxed mb-4">From Taj Usha Kiran Palace to Jehan Numa Retreat — exclusive rates at India's finest.</p>
                 <Link href="/services/hotel-booking" className="inline-block mt-6 bg-gold-400 text-navy-950 font-bold px-6 py-3 rounded-lg hover:shadow-xl transition-all">Book Hotels →</Link>
               </div>
-              <FeatureImage src="https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Luxury hotel room" />
+              <FeatureImage src="/assets/img/img-4ddcff6b.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Luxury hotel room" />
             </div>
           </div>
         </section>
@@ -137,7 +137,7 @@ export default function ServicesPage() {
         <section className="py-24 bg-navy-950">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <FeatureImage src="https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Airplane wing" />
+              <FeatureImage src="/assets/img/img-181948f7.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Airplane wing" />
               <div>
                 <h2 className="text-3xl md:text-4xl font-heading text-gold-400 mb-4">✈️ Flight Booking</h2>
                 <p className="text-cream-100/60 leading-relaxed mb-4">Domestic & international flights at competitive prices. Business class upgrades available.</p>

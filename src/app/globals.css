@@ -39,7 +39,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 
 /* Text gradient (gold) */
 .text-gradient {
-  background: linear-gradient(135deg, #D4AF37 0%, #F5E08E 50%, #D4AF37 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #87CEEB 50%, #ffffff 100%);
   background-size: 300% 300%;
   animation: gradientShift 8s ease infinite;
   -webkit-background-clip: text;
@@ -302,4 +302,32 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 /* Ensure hero content doesn't collide with fixed header */
 .hero-content {
   padding-top: 5rem;   /* accounts for fixed nav height */
+}
+
+/* Bold looping gradient hero text (white‑sky blue) */
+.text-gradient {
+  font-weight: 900 !important;   /* ultra‑bold */
+  background: linear-gradient(135deg, #ffffff 0%, #87CEEB 50%, #ffffff 100%);
+  background-size: 300% 300%;
+  animation: gradientShift 8s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Gradient text for paragraphs and inline elements */
+.text-gradient-sub {
+  font-weight: 600;
+  background: linear-gradient(135deg, #ffffff 0%, #87CEEB 50%, #ffffff 100%);
+  background-size: 300% 300%;
+  animation: gradientShift 8s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

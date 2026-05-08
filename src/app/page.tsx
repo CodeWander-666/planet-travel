@@ -27,11 +27,11 @@ export default function Home() {
         <section className="relative min-h-screen hero-background">
           <video
             autoPlay muted loop playsInline
-            poster="https://images.pexels.com/photos/3601422/pexels-photo-3601422.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            poster="/assets/img/img-dd663bb7.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
             className="absolute inset-0 w-full h-full object-cover"
           >
-            <source src="https://cdn.coverr.co/videos/coverr-aerial-view-of-a-mountain-range-5563/1080p.webm" type="video/webm" />
-            <source src="https://videos.pexels.com/video-files/854172/854172-hd_1920_1080_25fps.mp4" type="video/mp4" />
+            <source src="/assets/img/img-468abe49.webm" type="video/webm" />
+            <source src="/assets/img/img-ff6f649c.mp4" type="video/mp4" />
           </video>
           <div className="hero-overlay absolute inset-0 bg-navy-950/70 z-[1]" />
           <HeroTrain />
@@ -39,18 +39,18 @@ export default function Home() {
             <div className="max-w-4xl">
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6">
                 <span className="text-backdrop">
-                  <span className="text-gradient">Beyond Journeys,</span><br/>
-                  <span className="text-gradient">Into Legacies</span>
+                  <span className="text-gradient font-bold">Beyond Journeys,</span><br/>
+                  <span className="text-gradient font-bold">Into Legacies</span>
                 </span>
               </h1>
-              <p className="text-cream-100/60 text-lg md:text-xl max-w-2xl mx-auto mb-8">
+              <p className="text-gradient-sub text-lg md:text-xl max-w-2xl mx-auto mb-8">
                 <span className="text-backdrop">
                   Your personal travel architect for India. Curating luxury experiences since 2000.
                 </span>
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link href="/concierge" className="bg-gold-400 text-navy-950 font-bold px-8 py-4 rounded-xl hover:shadow-2xl hover:shadow-gold-400/30 transition-all text-lg">Begin Your Journey</Link>
-                <Link href="/train" className="border border-gold-400/30 text-gold-400 px-8 py-4 rounded-xl hover:bg-gold-400/10 transition-all text-lg">Track a Train</Link>
+                <Link href="/train" className="border border-gold-400/30 text-gradient-sub font-bold px-8 py-4 rounded-xl hover:bg-gold-400/10 transition-all text-lg">Track a Train</Link>
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@ export default function Home() {
               </div>
               <div className="glass rounded-2xl p-8 border border-gold-400/10 text-center overflow-hidden">
                 <img 
-                  src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                  src="/assets/img/img-990c3777.jpeg?auto=compress&cs=tinysrgb&w=600" 
                   alt="Smiling family travelling" 
                   className="w-full h-64 object-cover rounded-xl mb-4"
                 />
@@ -116,9 +116,9 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4">
             <SectionHeader title="Experience the Journey" subtitle="Watch how we make travel unforgettable" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <VideoCard3D webmSrc="https://cdn.coverr.co/videos/coverr-a-man-driving-a-car-6295/1080p.webm" posterSrc="https://images.pexels.com/photos/2104742/pexels-photo-2104742.jpeg?auto=compress&cs=tinysrgb&w=600" title="Chauffeur Drives" description="Luxury vehicles at your disposal" delay={0} />
-              <VideoCard3D webmSrc="https://cdn.coverr.co/videos/coverr-a-woman-walking-in-a-train-station-4824/1080p.webm" posterSrc="https://images.pexels.com/photos/725255/pexels-photo-725255.jpeg?auto=compress&cs=tinysrgb&w=600" title="Station Transfers" description="Seamless railway & airport pickups" delay={0.1} />
-              <VideoCard3D webmSrc="https://cdn.coverr.co/videos/coverr-aerial-shot-of-a-beach-resort-2033/1080p.webm" posterSrc="https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=600" title="Luxury Stays" description="Palace hotels & beach resorts" delay={0.2} />
+              <VideoCard3D webmSrc="/assets/video/video-d0e95a15.webm.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Chauffeur Drives" description="Luxury vehicles at your disposal" delay={0} />
+              <VideoCard3D webmSrc="/assets/video/video-041f5da5.webm.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Station Transfers" description="Seamless railway & airport pickups" delay={0.1} />
+              <VideoCard3D webmSrc="/assets/video/video-073c7d07.webm.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Luxury Stays" description="Palace hotels & beach resorts" delay={0.2} />
             </div>
           </div>
         </section>
@@ -206,3 +206,21 @@ export default function Home() {
     </>
   );
 }
+{/* SECTION 11 – Visit Us */}
+<section className="py-24 bg-navy-950">
+  <div className="max-w-7xl mx-auto px-4">
+    <SectionHeader title="Visit Us" subtitle="We'd love to welcome you" />
+    <div className="grid md:grid-cols-2 gap-8 items-center">
+      <div className="glass rounded-2xl p-8 border border-gold-400/10">
+        <p className="text-xl text-gold-400 font-heading mb-2">Platform №1, Gwalior Railway Station</p>
+        <p className="text-cream-100/50 mb-4">Opposite NCC Office, Gwalior, Madhya Pradesh — 474002</p>
+        <a href="https://wa.me/916261031710?text=Hello%20Planet%26Travel%2C%20I%20need%20assistance" className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500 transition-colors">
+          Chat on WhatsApp
+        </a>
+      </div>
+      <div className="glass rounded-2xl overflow-hidden border border-gold-400/10">
+        <img src="/assets/homepage/visit-us.png" alt="Planet&Travel Office" className="w-full h-80 object-cover" />
+      </div>
+    </div>
+  </div>
+</section>

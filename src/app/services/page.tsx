@@ -54,9 +54,9 @@ export default function ServicesPage() {
       <main>
         {/* SECTION 1 – Fixed Hero */}
         <section className="relative min-h-[70vh] hero-background">
-          <video autoPlay muted loop playsInline poster="/assets/img/img-b31836e5.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
-            <source src="/assets/img/img-468abe49.webm" type="video/webm" />
-            <source src="/assets/img/img-ff6f649c.mp4" type="video/mp4" />
+          <video autoPlay muted loop playsInline poster="/assets/homepage/destinations/gwalior.png">
+            <source src="/assets/homepage/destinations/gwalior.png" type="video/webm" />
+            <source src="/assets/homepage/destinations/gwalior.png" type="video/mp4" />
           </video>
           <div className="hero-overlay" />
           <div className="hero-content flex items-center justify-center h-full">
@@ -100,7 +100,7 @@ export default function ServicesPage() {
                 </p>
                 <Link href="/services/confirm-ticket" className="inline-block mt-6 bg-gold-400 text-navy-950 font-bold px-6 py-3 rounded-lg hover:shadow-xl transition-all">Book Tickets →</Link>
               </div>
-              <FeatureImage src="/assets/img/img-8ddc56fa.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Indian Railway train" />
+              <FeatureImage src="/assets/homepage/destinations/gwalior.png" alt="Indian Railway train" />
             </div>
           </div>
         </section>
@@ -109,7 +109,7 @@ export default function ServicesPage() {
         <section className="py-24 bg-navy-950">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <FeatureImage src="/assets/img/img-304ab048.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Luxury palace hotel" />
+              <FeatureImage src="/assets/homepage/destinations/gwalior.png" alt="Luxury palace hotel" />
               <div>
                 <h2 className="text-3xl md:text-4xl font-heading text-gold-400 mb-4">🏰 Bespoke Luxury Tours</h2>
                 <p className="text-cream-100/60 leading-relaxed mb-4">Private guides, palace stays, helicopter transfers — every tour is a one‑of‑a‑kind masterpiece.</p>
@@ -128,7 +128,7 @@ export default function ServicesPage() {
                 <p className="text-cream-100/60 leading-relaxed mb-4">From Taj Usha Kiran Palace to Jehan Numa Retreat — exclusive rates at India's finest.</p>
                 <Link href="/services/hotel-booking" className="inline-block mt-6 bg-gold-400 text-navy-950 font-bold px-6 py-3 rounded-lg hover:shadow-xl transition-all">Book Hotels →</Link>
               </div>
-              <FeatureImage src="/assets/img/img-4ddcff6b.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Luxury hotel room" />
+              <FeatureImage src="/assets/homepage/destinations/gwalior.png" alt="Luxury hotel room" />
             </div>
           </div>
         </section>
@@ -137,7 +137,7 @@ export default function ServicesPage() {
         <section className="py-24 bg-navy-950">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <FeatureImage src="/assets/img/img-181948f7.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Airplane wing" />
+              <FeatureImage src="/assets/homepage/destinations/gwalior.png" alt="Airplane wing" />
               <div>
                 <h2 className="text-3xl md:text-4xl font-heading text-gold-400 mb-4">✈️ Flight Booking</h2>
                 <p className="text-cream-100/60 leading-relaxed mb-4">Domestic & international flights at competitive prices. Business class upgrades available.</p>

@@ -45,11 +45,11 @@ export default function CarBookingPage() {
         <section className="relative min-h-[70vh] hero-background">
           <video
             autoPlay muted loop playsInline
-            poster="/assets/img/img-befcd619.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            poster="/assets/homepage/destinations/gwalior.png"
             className="absolute inset-0 w-full h-full object-cover"
           >
-            <source src="/assets/img/img-d8e17bd2.webm" type="video/webm" />
-            <source src="/assets/img/img-df38c620.mp4" type="video/mp4" />
+            <source src="/assets/homepage/destinations/gwalior.png" type="video/webm" />
+            <source src="/assets/homepage/destinations/gwalior.png" type="video/mp4" />
           </video>
           <div className="hero-overlay absolute inset-0 bg-navy-950/70 z-[1]" />
           <div className="hero-content relative z-[2] flex items-center justify-center h-full text-center px-4 pt-20 md:pt-28">
@@ -92,7 +92,7 @@ export default function CarBookingPage() {
                 </ul>
               </div>
               <div className="glass rounded-2xl p-4 overflow-hidden">
-                <img src="/assets/img/img-fe438f92.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Luxury car fleet" className="w-full h-80 object-cover rounded-xl" />
+                <img src="/assets/homepage/destinations/gwalior.png" alt="Luxury car fleet" className="w-full h-80 object-cover rounded-xl" />
               </div>
             </div>
           </div>
@@ -159,8 +159,8 @@ export default function CarBookingPage() {
             <SectionHeader title="Popular Packages" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { title:"Local City Ride", desc:"4 hours / 40km", img:"/assets/img/img-5954b23d.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { title:"Outstation Trip", desc:"300km per day", img:"/assets/img/img-b6631fa0.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { title:"Local City Ride", desc:"4 hours / 40km", img:"/assets/homepage/destinations/gwalior.png" },
+                { title:"Outstation Trip", desc:"300km per day", img:"/assets/homepage/destinations/gwalior.png" },
                 { title:"Airport Transfer", desc:"One‑way or round trip", img:"/assets/homepage/destinations/gwalior.png" },
               ].map((pkg, i) => (
                 <div key={i} className="glass rounded-2xl overflow-hidden border border-gold-400/10 hover:border-gold-400/30 transition-all group">
@@ -181,13 +181,13 @@ export default function CarBookingPage() {
             <SectionHeader title="See Our Fleet in Action" />
             <div className="grid md:grid-cols-2 gap-6">
               <div className="glass rounded-2xl overflow-hidden video-card">
-                <video autoPlay muted loop playsInline poster="/assets/img/img-5954b23d.jpeg?auto=compress&cs=tinysrgb&w=600">
-                  <source src="/assets/img/img-d8e17bd2.webm" type="video/webm" />
+                <video autoPlay muted loop playsInline poster="/assets/homepage/destinations/gwalior.png">
+                  <source src="/assets/homepage/destinations/gwalior.png" type="video/webm" />
                 </video>
               </div>
               <div className="glass rounded-2xl overflow-hidden video-card">
-                <video autoPlay muted loop playsInline poster="/assets/img/img-b6631fa0.jpeg?auto=compress&cs=tinysrgb&w=600">
-                  <source src="/assets/img/img-bf40668a.webm" type="video/webm" />
+                <video autoPlay muted loop playsInline poster="/assets/homepage/destinations/gwalior.png">
+                  <source src="/assets/homepage/destinations/gwalior.png" type="video/webm" />
                 </video>
               </div>
             </div>

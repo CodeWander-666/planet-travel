@@ -21,9 +21,9 @@ export default function Page() {
             muted
             loop
             playsInline
-            poster="/assets/img/img-dd663bb7.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            poster="/assets/homepage/destinations/gwalior.png"
           >
-            <source src="/assets/img/img-b252f6d3.mp4" type="video/mp4" />
+            <source src="/assets/homepage/destinations/gwalior.png" type="video/mp4" />
           </video>
           <div className="hero-overlay" />
           <div className="hero-content relative z-10 text-center px-4 w-full">

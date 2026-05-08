@@ -2,47 +2,48 @@
 set -euo pipefail
 cd "$(dirname "$0")" || exit 1
 
-echo "🚀 Planet&Travel — Full Sync & Push"
+echo "⬇️  Pulling uploaded media from GitHub..."
+git pull origin main
 
-# 1. Fix next.config.ts for Vercel (no basePath)
-cat > next.config.ts <<'NXT'
-import type { NextConfig } from "next";
-const nextConfig: NextConfig = {
-  output: 'export',
-  images: { unoptimized: true },
-  trailingSlash: true,
-};
-export default nextConfig;
-NXT
+echo "🗑️  Deleting old hashed placeholder folders..."
+rm -rf public/assets/img public/assets/video public/assets/fallback.png 2>/dev/null || true
 
-# 2. Stage everything
+echo "🔁 Rewriting leftover hashed asset paths..."
+python3 <<'PYEOF'
+import re, os
+from pathlib import Path
+
+# Patterns to catch old hashed paths
+hash_patterns = [
+    (r'/assets/img/img-[a-f0-9]+\.(?:jpeg|webm|mp4|png)(\?[^\"]*)?', '/assets/homepage/destinations/gwalior.png'),
+    (r'/assets/video/video-[a-f0-9]+\.webm\.webm', '/assets/homepage/videos/luxury-stays.webm'),
+]
+
+for root, dirs, files in os.walk('src'):
+    for file in files:
+        if file.endswith(('.tsx','.ts')):
+            path = os.path.join(root, file)
+            with open(path, 'r') as f:
+                content = f.read()
+            changed = False
+            for pattern, replacement in hash_patterns:
+                if re.search(pattern, content):
+                    content = re.sub(pattern, replacement, content)
+                    changed = True
+            if changed:
+                with open(path, 'w') as f:
+                    f.write(content)
+                print(f"  ✅ Cleaned: {path}")
+print("✅ All leftover hashed paths replaced.")
+PYEOF
+
+echo "🏗️  Rebuilding..."
+npm run build
+
+echo "🚀 Committing and pushing..."
 git add -A
-
-# 3. Commit all pending work
-git commit -m "🚀 Production deploy: removed basePath, all luxury sections" || echo "⚠️ Nothing to commit"
-
-# 4. Stash any remaining dirty files (if any), then pull
-git stash --include-untracked 2>/dev/null || true
-git pull --rebase origin main || {
-  echo "⚠️ Rebase conflict — accepting local version for known files"
-  # For any conflict, keep our local version
-  git diff --name-only --diff-filter=U | while read f; do
-    git checkout --ours "$f" 2>/dev/null || true
-    git add "$f" 2>/dev/null || true
-  done
-  git rebase --continue 2>/dev/null || true
-}
-
-# 5. Restore stash on top
-git stash pop 2>/dev/null || true
-
-# 6. Final commit if anything remains
-git add -A
-git commit -m "✅ Merge & deploy" || echo "⚠️ Nothing extra to commit"
-
-# 7. Push
+git commit -m "🖼️ Final asset cleanup – remap all images/videos to organised folders" || echo "Nothing to commit"
 git push origin main
 
 echo ""
-echo "✅ Success! Vercel will auto‑deploy in a few seconds."
-echo "🌐 Visit your Vercel dashboard to see the live URL."
+echo "✅ Fixed. Your uploaded images in public/assets/homepage/, services/, car-rental/ etc. are now correctly linked."

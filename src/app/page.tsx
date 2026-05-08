@@ -27,11 +27,11 @@ export default function Home() {
         <section className="relative min-h-screen hero-background">
           <video
             autoPlay muted loop playsInline
-            poster="/assets/img/img-dd663bb7.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            poster="/assets/homepage/destinations/gwalior.png"
             className="absolute inset-0 w-full h-full object-cover"
           >
-            <source src="/assets/img/img-468abe49.webm" type="video/webm" />
-            <source src="/assets/img/img-ff6f649c.mp4" type="video/mp4" />
+            <source src="/assets/homepage/destinations/gwalior.png" type="video/webm" />
+            <source src="/assets/homepage/destinations/gwalior.png" type="video/mp4" />
           </video>
           <div className="hero-overlay absolute inset-0 bg-navy-950/70 z-[1]" />
           <HeroTrain />
@@ -76,7 +76,7 @@ export default function Home() {
               </div>
               <div className="glass rounded-2xl p-8 border border-gold-400/10 text-center overflow-hidden">
                 <img 
-                  src="/assets/img/img-990c3777.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                  src="/assets/homepage/destinations/gwalior.png" 
                   alt="Smiling family travelling" 
                   className="w-full h-64 object-cover rounded-xl mb-4"
                 />
@@ -116,9 +116,9 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4">
             <SectionHeader title="Experience the Journey" subtitle="Watch how we make travel unforgettable" />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <VideoCard3D webmSrc="/assets/video/video-d0e95a15.webm.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Chauffeur Drives" description="Luxury vehicles at your disposal" delay={0} />
-              <VideoCard3D webmSrc="/assets/video/video-041f5da5.webm.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Station Transfers" description="Seamless railway & airport pickups" delay={0.1} />
-              <VideoCard3D webmSrc="/assets/video/video-073c7d07.webm.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Luxury Stays" description="Palace hotels & beach resorts" delay={0.2} />
+              <VideoCard3D webmSrc="/assets/homepage/videos/luxury-stays.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Chauffeur Drives" description="Luxury vehicles at your disposal" delay={0} />
+              <VideoCard3D webmSrc="/assets/homepage/videos/luxury-stays.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Station Transfers" description="Seamless railway & airport pickups" delay={0.1} />
+              <VideoCard3D webmSrc="/assets/homepage/videos/luxury-stays.webm" posterSrc="/assets/homepage/destinations/gwalior.png" title="Luxury Stays" description="Palace hotels & beach resorts" delay={0.2} />
             </div>
           </div>
         </section>

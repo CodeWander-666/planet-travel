@@ -15,6 +15,10 @@ export const metadata: Metadata = {
     type: "website",
   },
   robots: { index: true, follow: true },
+  verification: {
+    google: 'nNkeuTduhlnNCTAw3NAKgA0Yf4uRmhXUCIzjg5aEUXo',
+  },
+
 };
 
 export default function RootLayout({

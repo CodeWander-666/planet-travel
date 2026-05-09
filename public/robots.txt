@@ -1,3 +1,20 @@
+# ─────────────────────────────────────────────────────────────
+# Planet&Travel — robots.txt
+# Allows all important crawling, blocks nothing, guides bots
+# ─────────────────────────────────────────────────────────────
+
 User-agent: *
 Allow: /
-Sitemap: https://codewander-666.github.io/planet-travel/sitemap.xml
+Disallow:
+
+# Crawl-delay to be polite to our server (Vercel handles well)
+Crawl-delay: 2
+
+# Sitemap location (absolute URL)
+Sitemap: https://planet-travel.vercel.app/sitemap.xml
+
+# ── Allow all assets needed for rendering ──
+Allow: /assets/
+Allow: /_next/
+
+# ── Block nothing – let Google see everything ──

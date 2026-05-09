@@ -156,7 +156,7 @@ export default function Footer() {
             {/* Review us on Google link */}
             <div className="mt-3">
               <a
-                href="https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID"
+                href="https://g.page/r/CVuIiNhTCqs-EBM/review"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs text-blue-600 hover:underline font-medium"

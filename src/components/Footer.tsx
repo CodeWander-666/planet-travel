@@ -21,7 +21,7 @@ export default function Footer() {
   return (
     <footer className="bg-white border-t border-gray-200">
       {/* Main footer content */}
-      <div className="max-w-7xl mx-auto px-6 py-16">
+      <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
 
           {/* Column 1 — Brand */}
@@ -42,7 +42,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-3">
               <a
-                href="https://wa.me/916261031710"
+                href="https://wa.me/919926665382"
                 target="_blank"
                 className="w-9 h-9 rounded-full bg-green-600 flex items-center justify-center hover:bg-green-500 transition"
                 aria-label="Chat on WhatsApp"
@@ -116,20 +116,20 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 5 — Contact / Visit Us */}
+          {/* Column 5 — Visit Us + Google Map */}
           <div>
             <h4 className="text-base font-bold text-gray-900 mb-4 font-heading">
               Visit Us
             </h4>
-            <div className="space-y-2.5 text-sm text-gray-700">
+            <div className="space-y-2.5 text-sm text-gray-700 mb-4">
               <p className="font-semibold">Planet & Travel</p>
               <p>Platform №1, Gwalior Railway Station</p>
               <p>Opposite NCC Office</p>
               <p>Gwalior, Madhya Pradesh — 474002</p>
-              <p className="pt-2">
+              <p>
                 <span className="font-semibold">📞</span>{' '}
-                <a href="tel:+916261031710" className="hover:text-gold-400 transition-colors font-medium">
-                  +91 62610 31710
+                <a href="tel:+919926665382" className="hover:text-gold-400 transition-colors font-medium">
+                  +91 99266 65382
                 </a>
               </p>
               <p>
@@ -137,6 +137,34 @@ export default function Footer() {
                 <a href="mailto:concierge@planetandtravel.in" className="hover:text-gold-400 transition-colors font-medium">
                   concierge@planetandtravel.in
                 </a>
+              </p>
+            </div>
+
+            {/* Google Maps Embed */}
+            <div className="rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+              <iframe
+                src="https://www.google.com/maps?q=Planet%26Travel%2C+Platform+1%2C+Gwalior+Railway+Station%2C+opposite+NCC+Office%2C+Gwalior%2C+Madhya+Pradesh+474002&output=embed"
+                width="100%"
+                height="180"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                title="Planet & Travel Location"
+              />
+            </div>
+
+            {/* Review us on Google link */}
+            <div className="mt-3">
+              <a
+                href="https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-blue-600 hover:underline font-medium"
+              >
+                ⭐ Review us on Google
+              </a>
+              <p className="text-xs text-gray-400 mt-1">
+                (Replace YOUR_PLACE_ID with your actual Google Place ID)
               </p>
             </div>
           </div>

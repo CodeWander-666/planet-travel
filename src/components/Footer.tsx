@@ -164,7 +164,6 @@ export default function Footer() {
                 ⭐ Review us on Google
               </a>
               <p className="text-xs text-gray-400 mt-1">
-                (Replace YOUR_PLACE_ID with your actual Google Place ID)
               </p>
             </div>
           </div>

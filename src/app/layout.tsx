@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   },
   description:
     "Bespoke luxury journeys across India since 2000. Private guides, palace stays, train tickets, car rentals.",
-  metadataBase: new URL("https://planet-travel.vercel.app"),
+  metadataBase: new URL("https://planet-travels.vercel.app"),
   openGraph: {
     siteName: "Planet&Travel",
     locale: "en_IN",

@@ -6,29 +6,29 @@
 
   <!-- ═══════════ CORE PAGES ═══════════ -->
 
-  <!-- Homepage – highest priority -->
+  <!-- Homepage -->
   <url>
-    <loc>https://planet-travel.vercel.app/</loc>
+    <loc>https://planet-travels.vercel.app/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://planet-travel.vercel.app/assets/homepage/about-family.png</image:loc>
+      <image:loc>https://planet-travels.vercel.app/assets/homepage/about-family.png</image:loc>
       <image:title>Planet&amp;Travel Luxury Agency Gwalior</image:title>
-      <image:caption>Family travelling with Planet&amp;Travel – luxury journeys since 2000</image:caption>
+      <image:caption>Family travelling – luxury journeys since 2000</image:caption>
     </image:image>
     <video:video>
-      <video:thumbnail_loc>https://planet-travel.vercel.app/assets/hero/homepage-hero.webm</video:thumbnail_loc>
+      <video:thumbnail_loc>https://planet-travels.vercel.app/assets/hero/homepage-hero.webm</video:thumbnail_loc>
       <video:title>Planet&amp;Travel – Beyond Journeys, Into Legacies</video:title>
       <video:description>Luxury travel agency Gwalior since 2000. Confirmed train tickets, MP tours, car rental.</video:description>
-      <video:content_loc>https://planet-travel.vercel.app/assets/hero/homepage-hero.webm</video:content_loc>
+      <video:content_loc>https://planet-travels.vercel.app/assets/hero/homepage-hero.webm</video:content_loc>
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>
 
   <!-- Services hub -->
   <url>
-    <loc>https://planet-travel.vercel.app/services/</loc>
+    <loc>https://planet-travels.vercel.app/services/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -36,7 +36,7 @@
 
   <!-- Reviews -->
   <url>
-    <loc>https://planet-travel.vercel.app/reviews/</loc>
+    <loc>https://planet-travels.vercel.app/reviews/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -44,7 +44,7 @@
 
   <!-- Train Tracker -->
   <url>
-    <loc>https://planet-travel.vercel.app/train/</loc>
+    <loc>https://planet-travels.vercel.app/train/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -52,7 +52,7 @@
 
   <!-- Concierge / Contact -->
   <url>
-    <loc>https://planet-travel.vercel.app/concierge/</loc>
+    <loc>https://planet-travels.vercel.app/concierge/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -61,85 +61,77 @@
   <!-- ═══════════ SERVICE SUB‑PAGES ═══════════ -->
 
   <url>
-    <loc>https://planet-travel.vercel.app/services/confirm-ticket/</loc>
+    <loc>https://planet-travels.vercel.app/services/confirm-ticket/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://planet-travel.vercel.app/assets/services/train.png</image:loc>
+      <image:loc>https://planet-travels.vercel.app/assets/services/train.png</image:loc>
       <image:title>Confirmed Railway Ticket Booking Gwalior</image:title>
       <image:caption>Tatkal &amp; Premium Tatkal confirmed tickets – 94% success rate</image:caption>
     </image:image>
   </url>
 
   <url>
-    <loc>https://planet-travel.vercel.app/services/luxury-tours/</loc>
+    <loc>https://planet-travels.vercel.app/services/luxury-tours/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://planet-travel.vercel.app/assets/services/palace.png</image:loc>
+      <image:loc>https://planet-travels.vercel.app/assets/services/palace.png</image:loc>
       <image:title>Luxury Heritage Tours Madhya Pradesh</image:title>
       <image:caption>Bespoke MP tours – Gwalior Fort, Orchha, Khajuraho, Kanha</image:caption>
     </image:image>
   </url>
 
   <url>
-    <loc>https://planet-travel.vercel.app/services/hotel-booking/</loc>
+    <loc>https://planet-travels.vercel.app/services/hotel-booking/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://planet-travel.vercel.app/assets/services/hotel-room.png</image:loc>
+      <image:loc>https://planet-travels.vercel.app/assets/services/hotel-room.png</image:loc>
       <image:title>Premium Hotel Booking Gwalior &amp; MP</image:title>
       <image:caption>5‑star &amp; heritage palace stays at exclusive rates</image:caption>
     </image:image>
   </url>
 
   <url>
-    <loc>https://planet-travel.vercel.app/services/flight-booking/</loc>
+    <loc>https://planet-travels.vercel.app/services/flight-booking/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://planet-travel.vercel.app/assets/services/airplane-wing.png</image:loc>
+      <image:loc>https://planet-travels.vercel.app/assets/services/airplane-wing.png</image:loc>
       <image:title>Domestic &amp; International Flight Booking</image:title>
     </image:image>
   </url>
 
   <url>
-    <loc>https://planet-travel.vercel.app/services/visa-assistance/</loc>
+    <loc>https://planet-travels.vercel.app/services/visa-assistance/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://planet-travel.vercel.app/services/corporate-travel/</loc>
+    <loc>https://planet-travels.vercel.app/services/corporate-travel/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Car Rental – high commercial intent -->
+  <!-- Car Rental -->
   <url>
-    <loc>https://planet-travel.vercel.app/services/car-booking/</loc>
+    <loc>https://planet-travels.vercel.app/services/car-booking/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://planet-travel.vercel.app/assets/car-rental/sedan.png</image:loc>
+      <image:loc>https://planet-travels.vercel.app/assets/car-rental/sedan.png</image:loc>
       <image:title>Car Rental Gwalior – Sedans, SUVs, Tempo Travellers</image:title>
       <image:caption>Self‑drive &amp; chauffeur car rental near Gwalior Railway Station</image:caption>
     </image:image>
-  </url>
-
-  <!-- ═══════════ BACKLINKS PAGE ═══════════ -->
-  <url>
-    <loc>https://planet-travel.vercel.app/backlinks/</loc>
-    <lastmod>2026-05-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
   </url>
 
 </urlset>

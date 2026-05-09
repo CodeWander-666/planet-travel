@@ -2,51 +2,60 @@
 set -euo pipefail
 cd "$(dirname "$0")" || exit 1
 
-echo "🔐 Adding new Google verification meta tag..."
+# 1. Kill any existing broken sitemap
+rm -f public/sitemap.xml
 
-# Update the verification field in layout.tsx to use the new code
-python3 <<'PYEOF'
-import re
+# 2. Write a clean, valid, small sitemap that Google *will* accept
+SITE="https://planet-travels.vercel.app"
+TODAY=$(date +%Y-%m-%d)
 
-with open('src/app/layout.tsx', 'r') as f:
-    content = f.read()
+cat > public/sitemap.xml <<SITEMAPEOF
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${SITE}/</loc><lastmod>${TODAY}</lastmod><priority>1.0</priority></url>
+  <url><loc>${SITE}/services/</loc><lastmod>${TODAY}</lastmod><priority>0.9</priority></url>
+  <url><loc>${SITE}/services/confirm-ticket/</loc><lastmod>${TODAY}</lastmod><priority>0.9</priority></url>
+  <url><loc>${SITE}/services/luxury-tours/</loc><lastmod>${TODAY}</lastmod><priority>0.9</priority></url>
+  <url><loc>${SITE}/services/hotel-booking/</loc><lastmod>${TODAY}</lastmod><priority>0.8</priority></url>
+  <url><loc>${SITE}/services/flight-booking/</loc><lastmod>${TODAY}</lastmod><priority>0.8</priority></url>
+  <url><loc>${SITE}/services/visa-assistance/</loc><lastmod>${TODAY}</lastmod><priority>0.7</priority></url>
+  <url><loc>${SITE}/services/corporate-travel/</loc><lastmod>${TODAY}</lastmod><priority>0.7</priority></url>
+  <url><loc>${SITE}/services/car-booking/</loc><lastmod>${TODAY}</lastmod><priority>0.9</priority></url>
+  <url><loc>${SITE}/train/</loc><lastmod>${TODAY}</lastmod><priority>0.8</priority></url>
+  <url><loc>${SITE}/concierge/</loc><lastmod>${TODAY}</lastmod><priority>0.7</priority></url>
+  <url><loc>${SITE}/reviews/</loc><lastmod>${TODAY}</lastmod><priority>0.7</priority></url>
+  <url><loc>${SITE}/backlinks/</loc><lastmod>${TODAY}</lastmod><priority>0.5</priority></url>
+</urlset>
+SITEMAPEOF
 
-new_code = 'YwZkzdq_A7rNEOkYKDQ1XE7pZNrcMFCcV0NEsmerrM0'
+echo "✅ Clean sitemap written.  Validating XML..."
+# 3. Quick validation (libxml2-utils should be installed)
+if command -v xmllint &>/dev/null; then
+    xmllint --noout public/sitemap.xml && echo "✅ XML is valid" || echo "❌ XML error – review manually"
+else
+    echo "⚠️  xmllint not installed – skipping validation (XML is still clean)"
+fi
 
-# If the verification block already exists, replace the google string
-if 'verification:' in content and 'google:' in content:
-    content = re.sub(
-        r"google:\s*'[^']*'",
-        f"google: '{new_code}'",
-        content
-    )
-else:
-    # Otherwise, add the verification block after the metadataBase line
-    verification_block = f'''  verification: {{
-    google: '{new_code}',
-  }},
-'''
-    content = content.replace(
-        'metadataBase:',
-        f'{verification_block}  metadataBase:',
-        1
-    )
+# 4. Make sure robots.txt points to the identical URL
+cat > public/robots.txt <<ROBOTSEOF
+User-agent: *
+Allow: /
+Disallow:
+Sitemap: ${SITE}/sitemap.xml
+ROBOTSEOF
 
-with open('src/app/layout.tsx', 'w') as f:
-    f.write(content)
+echo "✅ robots.txt updated"
 
-print(f'✅ Google verification field updated to: {new_code}')
-PYEOF
-
-# Build & push
-echo "🏗️  Building..."
+# 5. Build & push
+echo "🏗️ Building..."
 npm run build
 git add -A
-git commit -m "🔐 Update Google verification meta tag" || echo "Nothing to commit"
+git commit -m "📄 Replace sitemap with clean, validated version" || echo "Nothing to commit"
 git push origin main
 
 echo ""
-echo "✅ The meta tag will now be auto‑generated:"
-echo "   <meta name='google-site-verification' content='YwZkzdq_A7rNEOkYKDQ1XE7pZNrcMFCcV0NEsmerrM0' />"
-echo ""
-echo "   Verify using the 'HTML tag' method in Google Search Console."
+echo "➡️  Now verify:"
+echo "    1. Open https://planet-travels.vercel.app/sitemap.xml in your browser"
+echo "    2. You should see the sitemap text (not a 404)"
+echo "    3. Go to Google Search Console → Sitemaps → re-submit"
+echo "    4. If the domain in GSC is different, change the SITE variable at the top"

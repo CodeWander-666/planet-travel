@@ -1,10 +1,4 @@
 User-agent: *
 Allow: /
 Disallow:
-
-Crawl-delay: 2
-
 Sitemap: https://planet-travels.vercel.app/sitemap.xml
-
-Allow: /assets/
-Allow: /_next/
